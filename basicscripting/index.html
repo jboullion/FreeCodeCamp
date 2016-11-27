@@ -4,6 +4,36 @@
 <script>
 
 /*
+function chunkArrayInGroups(arr, size) {
+	// Break it up.
+	var temparray = [];
+
+	for (var i = 0; i < arr.length; i += size) {
+	    temparray[temparray.length] = arr.slice(i, i+ size);
+	}
+
+	return temparray;
+}
+
+chunkArrayInGroups(["a", "b", "c", "d"], 2)
+//should return [["a", "b"], ["c", "d"]].
+chunkArrayInGroups([0, 1, 2, 3, 4, 5], 3)
+//should return [[0, 1, 2], [3, 4, 5]].
+chunkArrayInGroups([0, 1, 2, 3, 4, 5], 2)
+//should return [[0, 1], [2, 3], [4, 5]].
+chunkArrayInGroups([0, 1, 2, 3, 4, 5], 4)
+//should return [[0, 1, 2, 3], [4, 5]].
+chunkArrayInGroups([0, 1, 2, 3, 4, 5, 6], 3)
+//should return [[0, 1, 2], [3, 4, 5], [6]].
+chunkArrayInGroups([0, 1, 2, 3, 4, 5, 6, 7, 8], 4)
+//should return [[0, 1, 2, 3], [4, 5, 6, 7], [8]].
+chunkArrayInGroups([0, 1, 2, 3, 4, 5, 6, 7, 8], 2)
+//should return [[0, 1], [2, 3], [4, 5], [6, 7], [8]].
+*/
+
+
+
+/*
 function truncateString(str, num) {
   // Clear out that junk in your trunk
 
