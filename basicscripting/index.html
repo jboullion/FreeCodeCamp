@@ -3,6 +3,58 @@
 <body>
 <script>
 
+function destroyer(arr) {
+  // Remove all the values
+  	var parentArgs = arguments;
+
+	return arr.filter(function (value) {
+		for(var arg = 1; arg < parentArgs.length; arg++){
+			if(value == parentArgs[arg]) return false;
+		}
+		return true;
+	});
+}
+
+var test = destroyer([1, 2, 3, 1, 2, 3], 2, 3)
+console.log(test);
+//should return [1, 1].
+
+test = destroyer([1, 2, 3, 5, 1, 2, 3], 2, 3)
+console.log(test);
+//should return [1, 5, 1].
+test = destroyer([3, 5, 1, 2, 2], 2, 3, 5)
+console.log(test);
+//should return [1].
+test = destroyer([2, 3, 2, 3], 2, 3)
+console.log(test);
+//should return [].
+test = destroyer(["tree", "hamburger", 53], "tree", 53)
+console.log(test);
+//should return ["hamburger"].
+
+
+/*
+function bouncer(arr) {
+  // Don't show a false ID to this bouncer.
+  return arr.filter(function (value) {
+	  return value != false && (! isNaN(value) || typeof value == "string") && value != undefined;
+	});
+}
+
+var test = bouncer([7, "ate", "", false, 9]);
+console.log(test);
+//should return [7, "ate", 9].
+test = bouncer(["a", "b", "c"])
+console.log(test);
+//should return ["a", "b", "c"].
+test = bouncer([false, null, 0, NaN, undefined, ""])
+console.log(test);
+//should return [].
+test = bouncer([1, null, NaN, 2, undefined])
+console.log(test);
+//should return [1, 2].
+*/
+
 /*
 //aka same characters
 function mutation(arr) {
