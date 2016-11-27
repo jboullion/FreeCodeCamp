@@ -4,6 +4,60 @@
 <script>
 
 /*
+//aka same characters
+function mutation(arr) {
+
+	arr[0] = arr[0].toLowerCase();
+	arr[1] = arr[1].toLowerCase();
+
+	for(var i = 0; i < arr[1].length; i++){
+		if(arr[0].indexOf(arr[1][i]) < 0)	return false;
+	}
+
+	return true;
+}
+
+mutation(["hello", "hey"])
+//should return false.
+mutation(["hello", "Hello"])
+//should return true.
+mutation(["zyxwvutsrqponmlkjihgfedcba", "qrstu"])
+//should return true.
+mutation(["Mary", "Army"])
+//should return true.
+mutation(["Mary", "Aarmy"])
+//should return true.
+mutation(["Alien", "line"])
+//should return true.
+mutation(["floor", "for"])
+//should return true.
+mutation(["hello", "neo"])
+//should return false.
+mutation(["voodoo", "no"])
+//should return false.
+*/
+
+/*
+function slasher(arr, howMany) {
+  // it doesn't always pay to be first
+  return arr.slice(howMany, arr.length);
+}
+
+slasher([1, 2, 3], 2)
+//should return [3].
+slasher([1, 2, 3], 0)
+//should return [1, 2, 3].
+slasher([1, 2, 3], 9)
+//should return [].
+slasher([1, 2, 3], 4)
+//should return [].
+slasher(["burgers", "fries", "shake"], 1)
+//should return ["fries", "shake"].
+slasher([1, 2, "chicken", 3, "potatoes", "cheese", 4], 5)
+//should return ["cheese", 4].
+*/
+
+/*
 function chunkArrayInGroups(arr, size) {
 	// Break it up.
 	var temparray = [];
