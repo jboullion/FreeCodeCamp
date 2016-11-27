@@ -3,6 +3,101 @@
 <body>
 <script>
 
+
+//function rot13(str) { // LBH QVQ VG!
+/*
+	var rotLookup = {
+		'N': 'A',
+		'O': 'B',
+		'P': 'C',
+		'Q': 'D',
+		'R': 'E',
+		'S': 'F',
+		'T': 'G',
+		'U': 'H',
+		'V': 'I',
+		'W': 'J',
+		'X': 'K',
+		'Y': 'L',
+		'Z': 'M',
+		'A': 'N',
+		'B': 'O',
+		'C': 'P',
+		'D': 'Q',
+		'E': 'R',
+		'F': 'S',
+		'G': 'T',
+		'H': 'U',
+		'I': 'V',
+		'J': 'W',
+		'K': 'X',
+		'L': 'Y',
+		'M': 'Z' }
+
+	return str.replace(/[A-Z]/g,function(char){
+		return rotLookup[char];
+	});
+*/
+/*
+	return str.replace(/\w/g,function(char){
+		if(char.charCodeAt(0) >= 65 + 13){
+			//N-Z
+			return String.fromCharCode(char.charCodeAt(0) - 13);
+		}else{
+			//A-M
+			return String.fromCharCode(char.charCodeAt(0) + 13);
+		}
+	});
+
+}
+
+// Change the inputs below to test
+var test = rot13("SERR PBQR PNZC")
+console.log(test);
+//should decode to "FREE CODE CAMP"
+rot13("SERR CVMMN!")
+//should decode to "FREE PIZZA!"
+rot13("SERR YBIR?")
+//should decode to "FREE LOVE?"
+rot13("GUR DHVPX OEBJA QBT WHZCRQ BIRE GUR YNML SBK.")
+//should decode to "THE QUICK BROWN DOG JUMPED OVER THE LAZY FOX."
+*/
+
+/*
+function getIndexToIns(arr, num) {
+  // Find my place in this sorted array.
+	arr.push(num);
+	arr.sort(function(a,b){return a - b;});
+	for(var a = 0; a < arr.length; a++){
+		if(arr[a] === num) return a;
+	}
+	return undefined;
+}
+
+var test = getIndexToIns([10, 20, 30, 40, 50], 35)
+console.log(test);
+//should return 3.
+test = getIndexToIns([10, 20, 30, 40, 50], 30)
+console.log(test);
+//should return 2.
+test = getIndexToIns([40, 60], 50)
+console.log(test);
+//should return 1.
+test = getIndexToIns([3, 10, 5], 3)
+console.log(test);
+//should return 0.
+test = getIndexToIns([5, 3, 20, 3], 5)
+console.log(test);
+//should return 2.
+test = getIndexToIns([2, 20, 10], 19)
+console.log(test);
+//should return 2.
+test = getIndexToIns([2, 5, 10], 15)
+console.log(test);
+//should return 3.
+*/
+
+/*
 function destroyer(arr) {
   // Remove all the values
   	var parentArgs = arguments;
@@ -31,7 +126,7 @@ console.log(test);
 test = destroyer(["tree", "hamburger", 53], "tree", 53)
 console.log(test);
 //should return ["hamburger"].
-
+*/
 
 /*
 function bouncer(arr) {
