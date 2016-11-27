@@ -1,0 +1,92 @@
+<html>
+<head>
+
+
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+  <style>
+  html,
+body {
+  height: 100%;
+  background-color: #5b9aa0;
+  transition: all 0.2s;
+}
+
+
+#random-quote {
+
+  background-color: #FFF;
+  padding: 20px;
+  border-radius: 20px;
+  margin: 50px auto 10px;
+  width: 400px;
+  max-width: 100%;
+  transition: all 0.2s;
+}
+
+#random-btn {
+  font-size: 16px;
+}
+
+#random-btn i {
+  font-size: 16px;
+}
+
+#ego {
+  text-align: center;
+}
+
+#ego a {
+  color: #000;
+  font-weight: bold;
+}</style>
+  </head>
+<body>
+  <div id="random-quote" class="jumbotron">
+    <h2 id="quote"><i class="fa fa-circle-o-notch fa-spin fa-3x fa-fw"></i><span class="sr-only"></span></h2>
+    <p id="author"></p>
+    <br />
+
+    <button id="random-btn" class="btn btn-primary ">Get Quote</button>
+
+    <a id="tweet" class="btn btn-primary pull-right" href="#"  target="_blank"><i class="fa fa-twitter"></i></a>
+
+  </div>
+  <p id="ego"><small><a href="jboullion.com" target="_blank">by jboullion</a></small></p>
+
+  <script>
+
+  jQuery(document).ready(function($){
+
+   $.post("https://crossorigin.me/http://api.forismatic.com/api/1.0/?method=getQuote&lang=en&format=json&key=052841983", function( randQuote ) {
+        $('#quote, #author').fadeOut(300, function(){
+            $('#quote').html(randQuote.quoteText);
+            $('#author').html("- "+randQuote.quoteAuthor);
+            $('#tweet').attr('href', 'https://twitter.com/intent/tweet?hashtags=quotes&related=freecodecamp&text=' + encodeURIComponent('"' + randQuote.quoteText + '" ' + randQuote.quoteAuthor));
+
+          	$(this).fadeIn(300);
+        });
+
+
+        });
+     });
+    $('#random-btn').on('click', function(e){
+      $(this).html('<i class="fa fa-circle-o-notch fa-spin fa-3x fa-fw"></i><span class="sr-only">Loading...</span>');
+      $.post("https://crossorigin.me/http://api.forismatic.com/api/1.0/?method=getQuote&lang=en&format=json&key=052841983", function( randQuote ) {
+        $('#quote, #author').fadeOut(300, function(){
+            $('#quote').html(randQuote.quoteText);
+            $('#author').html("- "+randQuote.quoteAuthor);
+			$('#tweet').attr('href', 'https://twitter.com/intent/tweet?hashtags=quotes&related=freecodecamp&text=' + encodeURIComponent('"' + randQuote.quoteText + '" ' + randQuote.quoteAuthor));
+
+            $(this).fadeIn(300);
+        });
+
+        $('#random-btn').html('Get Quote');
+    });
+
+  });
+  </script>
+</body>
+</html>
