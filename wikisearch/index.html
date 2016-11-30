@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<style>
+	html,
+	body {
+		color: #333;
+		height: 100%;
+		background-color: #FFF;
+		transition: all 0.2s;
+		font-size: 18px;
+		line-height: 1.6;
+	}
+
+	h1 {
+		color: #333;
+		font-family: Georgia,Times,serif;
+		margin-bottom: 30px;
+		text-align: center;
+
+	}
+
+	h2 {
+		color: #333;
+		font-weight: bold;
+		margin-bottom: 30px;
+		margin-top: 10px;
+	}
+
+	a {
+		color: #333;
+	}
+
+	a:hover,
+	a:focus {
+		color: #333;
+		text-decoration: none;
+	}
+
+	#search-form {
+		background-color: #FFF;
+		margin: 50px auto 0px;
+		width: 630px;
+		max-width: 100%;
+		padding: 0 15px;
+		transition: all 0.2s;
+	}
+
+	#search-form input {
+		border: 1px solid #aaa;
+		border-radius: 0;
+		font-size: 1.5em;
+		transition: all 0.5s;
+		height: 48px;
+	}
+
+	#search-form span button {
+		border-radius: 0;
+		color: #333;
+		font-size: 24px;
+		font-weight: bold;
+		height: 48px;
+	}
+
+	#search-form span button:hover {
+		background-color: #f1f1f1;
+	}
+
+	#search-form .form-control:focus,
+	#search-form span button:focus {
+		border-color: #aaa;
+		outline: 0;
+		-webkit-box-shadow: none;
+		box-shadow: none;
+	}
+
+	#search-form .btn-default {
+		color: #333;
+		border-color: #aaa;
+	}
+
+	#search-results {
+		background-color: #FFF;
+		margin: 50px auto;
+		width: 630px;
+		max-width: 100%;
+		padding: 0 15px;
+		margin-bottom:10px;
+	}
+
+	#search-results a {
+
+	}
+
+	#search-results .clear {
+
+	}
+
+	#search-results .search-result {
+		border: 1px solid #aaa;
+		border-left: 5px solid #aaa;
+		margin-bottom: 30px;
+		padding: 20px;
+		transition: all 0.3s;
+		word-wrap: break-word;
+
+	}
+
+	#search-results .search-result:hover {
+		box-shadow: 0px 8px 8px #888888;
+		margin-bottom: 38px;
+		margin-top: -8px;
+	}
+
+	#search-results #random-results,
+	#search-results #more-results {
+		border-radius: 0;
+		transition: all 0.2s;
+	}
+
+	#search-results #random-results:hover,
+	#search-results #more-results:hover {
+		background-color: #f1f1f1;
+	}
+
+	#search-results #random-results {
+		float: left;
+	}
+
+	#search-results #random-results.full {
+		width: 100%;
+	}
+
+	#search-results #more-results {
+		float: right;
+	}
+
+	#search-results .btn-block {
+		margin-top: 0;
+		width: 48%;
+	}
+
+	#search-results .btn-block:last-child {
+		margin-left: 4%;
+	}
+
+	@media (max-width: 480px) {
+		#search-results .btn-block {
+			margin-bottom: 20px;
+			width: 100%;
+		}
+
+		#search-results .btn-block:last-child {
+			margin-left: 0;
+		}
+	}
+
+	#ego {
+	  text-align: center;
+	  margin-bottom: 50px;
+	}
+
+	#ego a {
+	  color: #000;
+	  font-weight: bold;
+	}
+</style>
+</head>
+<body>
+ 	<div id="search-form">
+		<h1>Easy Wiki</h1>
+		<form id="wiki-form" action="">
+			<div class="input-group">
+				<input class="form-control" id="wiki-what">
+				<span class="input-group-btn">
+					<button class="btn btn-default" type="submit" id="wiki-btn">
+						<i class="fa fa-search"></i>
+					</button>
+				</span>
+			</div>
+		</form>
+	</div>
+	<div id="search-results" class="clear">
+		<button id="random-results" class="btn btn-default btn-lg btn-block full">Random Search</button>
+		<button id="more-results" class="btn btn-default btn-lg btn-block" style="display: none;">More Results</button>
+		<div class="clearfix"></div>
+	</div>
+	<p id="ego"><small><a href="http://jboullion.com" target="_blank">by jboullion</a></small></p>
+
+<script id="result-tempate" type="text/template">
+	<a href="<%url%>" target="_blank" class="">
+		<div class="search-result">
+			<h2><%title%></h2>
+			<p><%extract%></p>
+		</div>
+	</a>
+</script>
+<script>
+
+	jQuery(document).ready(function($){
+		var resultTemplate = $('#result-tempate').html(),
+			goToWiki = 'https://en.wikipedia.org/?curid=',
+			spinner = '<i class="fa fa-spinner fa-pulse fa-fw"></i>',
+			lastSearch = '';
+			resultHTML = '',
+			wikiURL = '',
+			wikiWhat = '',
+			$searchResults = $('#search-results'),
+			$moreResults = $('#more-results'),
+			$randomResults = $('#random-results'),
+			$wikiWhat = $('#wiki-what'),
+			isRandom = false;
+			currentOffset = 0,
+			results = null;
+
+		var serachWiki = function(e){
+			e.preventDefault();
+
+			$('#wiki-btn').html(spinner);
+			$randomResults.html(spinner);
+			$moreResults.html(spinner);
+			resultHTML = '';
+
+			wikiWhat = encodeURI($wikiWhat.val());
+
+			if(isRandom){
+
+				if(lastSearch == wikiWhat){
+					wikiURL = 'https://crossorigin.me/https://en.wikipedia.org/w/api.php?action=query&format=json&list=random&rnlimit=10';
+					currentOffset += 10;
+				}else{
+					currentOffset = 0;
+					wikiURL = 'https://crossorigin.me/https://en.wikipedia.org/w/api.php?action=query&format=json&list=random&rnlimit=10';
+				}
+
+			}else{
+
+				if(lastSearch == wikiWhat){
+					wikiURL = 'https://crossorigin.me/https://en.wikipedia.org/w/api.php?format=json&action=query&generator=search&gsrnamespace=0&gsroffset='+currentOffset+'&gsrlimit=10&prop=pageimages|extracts&pilimit=max&exintro&explaintext&exsentences=1&exlimit=max&gsrsearch=';
+					currentOffset += 10;
+				}else{
+					lastSearch = wikiWhat;
+					currentOffset = 0;
+					wikiURL = 'https://crossorigin.me/https://en.wikipedia.org/w/api.php?format=json&action=query&generator=search&gsrnamespace=0&gsroffset='+currentOffset+'&gsrlimit=10&prop=pageimages|extracts&pilimit=max&exintro&explaintext&exsentences=1&exlimit=max&gsrsearch=';
+					currentOffset = 10;
+				}
+
+			}
+
+			$.get(wikiURL + encodeURI(wikiWhat), function( data ) {
+
+				if(data.query !== undefined){
+					if(isRandom){
+						results = data.query.random;
+					}else{
+						results = data.query.pages;
+					}
+
+					$.each( results, function( index, result ) {
+
+						resultHTML += TemplateEngine(resultTemplate, {
+										url: goToWiki + result.pageid,
+										title: result.title,
+										extract: result.extract
+									});
+
+					});
+
+					$moreResults.html('More Results');
+					$moreResults.show();
+				}else{
+					resultHTML = TemplateEngine(resultTemplate, {
+									url: '#',
+									title: 'No Results Found',
+									extract: ''
+								});
+
+					$moreResults.hide();
+				}
+
+				$randomResults.removeClass('full');
+				$randomResults.html('Random Search');
+				$randomResults.show();
+				$randomResults.before(resultHTML);
+
+				$('#wiki-btn').html('<i class="fa fa-search"></i>');
+
+			});
+
+			return false;
+		};
+
+
+		$('#wiki-form').on('submit', function(e){
+			isRandom = false;
+			$('.search-result').remove();
+			$randomResults.hide();
+			$moreResults.hide();
+			lastSearch = '';
+			serachWiki(e);
+		});
+
+		$moreResults.click(serachWiki);
+
+		$randomResults.click(function(e){
+			isRandom = true;
+			serachWiki(e);
+		});
+	});
+
+	function TemplateEngine(tpl, data) {
+	    var re = /<%([^%>]+)?%>/g, match;
+	    while(match = re.exec(tpl)) {
+	        tpl = tpl.replace(match[0], data[match[1]])
+	    }
+	    return tpl;
+	}
+
+</script>
+</body>
+</html>
