@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<style>
+	html,
+	body {
+		color: #333;
+		background-color: #201c2b;
+		height: 100%;
+		font-size: 10px;
+		font-family: Helvetica Neue,Helvetica,sans-serif;
+		line-height: 1.6;
+		overflow: hidden;
+	}
+
+	.display-flex {
+		display: flex;
+		flex-wrap: nowrap;
+		height: 100%;
+	}
+
+	#twitch-left,
+	#twitch-right {
+		margin: 0;
+		height: 100%;
+	}
+
+	#twitch-left {
+		background-color: #17141f;
+		width: 240px;
+		margin: 0;
+	}
+
+	#twitch-left svg {
+		fill: white;
+		margin: 0px 48px 40px;
+	}
+
+	#twitch-left #search-form {
+		width: 100%;
+	}
+
+	#twitch-right {
+		color: #dad8de;
+		position: relative;
+		padding-top: 10px;
+	}
+
+	.input-group-custom {
+		position: relative;
+		border: 0;
+		border-radius: 0;
+	}
+
+	.input-group-custom button,
+	.input-group-custom input {
+		display: inline-block;
+
+	}
+
+	::-webkit-input-placeholder,
+	::-moz-placeholder,
+	:-ms-input-placeholder,
+	:-moz-placeholder { /* Firefox 18- */
+		color: #898395;
+	}
+
+	.input-group-custom input {
+		background-color: #201c2b;
+		border: 0;
+		border-radius: 0;
+		box-shadow: #392e5c 0 0 0 1px inset;
+		color: #dad8de;
+		width:190px;
+		font-size: 1.2em;
+	    font-family: inherit;
+	    line-height: 2em;
+	    outline: 0;
+	    padding: .5em 1em .5em 35px;
+	    resize: both;
+	    transition: all .25s;
+	}
+
+	.input-group-custom input:focus {
+		background-color: #201c2b;
+		box-shadow: #7d5bbe 0 0 0 1px inset;
+		color: #dad8de;
+		outline: 0;
+	}
+
+	.input-group-custom button {
+		background-color: transparent;
+		border: 0;
+		border-radius: 0;
+		color: #898395;
+		position: absolute;
+		left: 0;
+		top: 0;
+		width: 35px;
+		font-size: 1.4em;
+		padding: 6px;
+	}
+
+	.input-group-custom button:focus {
+		outline: 0;
+	}
+
+	#recommended {
+		color: #cbc8d0;
+		font-size: 1.2em;
+		margin: 1.5em 0 1em;
+
+		text-transform: uppercase;
+		position: relative;
+	}
+
+	#recommended:before {
+		content: '';
+		position: absolute;
+		background-color: #2c2541;
+		height: 1px;
+		bottom: 0;
+		left: 0;
+		right: 0;
+	}
+
+	#recommended > span,
+	#recommended > button,
+	#recommended > a {
+		font-weight: bold;
+		line-height: 2em;
+		padding: .5em 0;
+		width: 100%;
+	}
+
+	#channels .channel {
+
+	}
+
+	#channels a.channel {
+		color: #dad8de;
+		cursor: pointer;
+		transition: color .25s,background .25s;
+		display: block;
+		padding: .5em 2em;
+	}
+
+	#channels a.channel:hover {
+		color: #faf9fa;
+		background: #201c2b;
+		text-decoration: none;
+	}
+
+	#channels .channel-figure {
+		margin-right: 1em;
+		width: 5em;
+		text-align: center;
+		float: left;
+		overflow: hidden;
+	}
+
+	#channels .channel-figure img {
+		width: 5em;
+		height: 5em;
+	}
+
+	#channels .channel-wrap {
+		display: inline-block;
+		line-height: 1.5em;
+		min-width: 0;
+	}
+
+	#channels .channel-wrap.not-found {
+		padding: .5em 2em;
+	}
+
+	#channels a.channel:hover .channel-title {
+		color: #faf9fa;
+	}
+
+	#channels .channel-title {
+
+		color: #dad8de;
+		font-size: 1.4rem;
+	}
+
+	#channels .channel-desc {
+		color: #898395;
+	    font-size: 1.1em;
+	    display: block;
+	}
+
+
+
+	.ellipsis {
+	    text-overflow: ellipsis;
+	    overflow: hidden;
+	    white-space: nowrap;
+	}
+
+	.pad-me {
+		padding: 0 20px;
+	}
+
+	#ego {
+
+	}
+
+	#ego a {
+		color: #dad8de;
+		font-weight: bold;
+	}
+</style>
+</head>
+<body>
+	<div class="display-flex">
+	 	<div id="twitch-left">
+			<div class="pad-me">
+				<a href="https://www.twitch.tv" title="Watch Twitch">
+					<svg aria-label="Twitch - Main Page" class="svg-logo_twitch" height="70px" role="img" version="1.1" viewBox="0 0 94 32" width="94px" x="0px" y="0px">
+						<title>Twitch</title>
+						<desc>I STOLE YOUR LOGO</desc>
+						<path clip-rule="evenodd" d="M88,5h-6V0h-9l-6,5h-5.5L59,7.5V5h-5V0H36v5H16l-5-5H0v22l5,5.25L14,32h6v-1.5l3,1.5h12l2-3l1,3h7v-3l3,3h8l0.5-3l2.5,3h10l3-3v3h4l3-3v3h7l7-6V10L88,5z M13,13H8v6h5v6H6l-4-4V2h6v5h5V13z M36,21.5L32.5,25H15V7h6v12h2V7h6v12h2V7h5V21.5z M44,25h-6V7h6V25z M44,5h-6V2h6V5z M57,13h-5v6h5v6h-7l-4-4V2h6v5h5V13z M72,13h-7v6h7v6h-9l-4-4V11l4-4h9V13z M91,25h-6V13h-5v12h-6V2h6v5h7l4,4V25z"  fill-rule="evenodd"></path>
+						<text x="13" y="48" fill="white">FreeCodeCamp</text>
+					</svg>
+				</a>
+
+				<form id="search-form" action="">
+					<div class="input-group-custom">
+						<button type="submit" id="search-btn">
+							<i class="fa fa-search"></i>
+						</button>
+						<input id="twitch-search"  placeholder="Search">
+					</div>
+				</form>
+
+				<div id="recommended">
+					<span>Recommended Channels</span>
+				</div>
+			</div>
+
+			<div id="channels"></div>
+
+		</div>
+
+		<div id="twitch-right" class="pad-me">
+			<h5 id="ego" class="">
+				<a href="http://jboullion.com" target="_blank">by jboullion</a>
+			</h5>
+		</div>
+
+	</div>
+
+<script id="online-tempate" type="text/template">
+	<a href="https://www.twitch.tv/<%channelTitle%>" class="channel" target="_blank">
+		<figure class="channel-figure">
+			<img src="<%profileImage%>">
+		</figure>
+		<span class="channel-wrap">
+			<span class="channel-title"><%channelTitle%></span>
+			<span class="channel-desc ellipsis"><%channelDesc%></span>
+		</span>
+	</a>
+</script>
+<script id="offline-tempate" type="text/template">
+	<a href="https://www.twitch.tv/<%channelTitle%>" class="channel" target="_blank">
+		<span class="channel-wrap">
+			<span class="channel-title"><%channelTitle%></span>
+			<span class="channel-desc">Offline</span>
+		</span>
+	</a>
+</script>
+<script id="not-found-tempate" type="text/template">
+	<span class="channel-wrap not-found">
+		<span class="channel-title"><%channelError%></span>
+		<span class="channel-desc"><%channelMessage%></span>
+	</span>
+</script>
+<script>
+/*
+	var twitchResponse = [
+	{
+	"stream": {
+	  "mature": false,
+	  "status": "Greg working on Electron-Vue boilerplate w/ Akira #programming #vuejs #electron",
+	  "broadcaster_language": "en",
+	  "display_name": "FreeCodeCamp",
+	  "game": "Creative",
+	  "language": "en",
+	  "_id": 79776140,
+	  "name": "freecodecamp",
+	  "created_at": "2015-01-14T03:36:47Z",
+	  "updated_at": "2016-09-17T05:00:52Z",
+	  "delay": null,
+	  "logo": "https://static-cdn.jtvnw.net/jtv_user_pictures/freecodecamp-profile_image-d9514f2df0962329-300x300.png",
+	  "banner": null,
+	  "video_banner": "https://static-cdn.jtvnw.net/jtv_user_pictures/freecodecamp-channel_offline_image-b8e133c78cd51cb0-1920x1080.png",
+	  "background": null,
+	  "profile_banner": "https://static-cdn.jtvnw.net/jtv_user_pictures/freecodecamp-profile_banner-6f5e3445ff474aec-480.png",
+	  "profile_banner_background_color": null,
+	  "partner": false,
+	  "url": "https://www.twitch.tv/freecodecamp",
+	  "views": 161989,
+	  "followers": 10048,
+	  "_links": {
+	    "self": "https://api.twitch.tv/kraken/channels/freecodecamp",
+	    "follows": "https://api.twitch.tv/kraken/channels/freecodecamp/follows",
+	    "commercial": "https://api.twitch.tv/kraken/channels/freecodecamp/commercial",
+	    "stream_key": "https://api.twitch.tv/kraken/channels/freecodecamp/stream_key",
+	    "chat": "https://api.twitch.tv/kraken/chat/freecodecamp",
+	    "subscriptions": "https://api.twitch.tv/kraken/channels/freecodecamp/subscriptions",
+	    "editors": "https://api.twitch.tv/kraken/channels/freecodecamp/editors",
+	    "teams": "https://api.twitch.tv/kraken/channels/freecodecamp/teams",
+	    "videos": "https://api.twitch.tv/kraken/channels/freecodecamp/videos"
+	  }
+	},
+	"_links": {
+	  "self": "https://api.twitch.tv/kraken/streams/freecodecamp",
+	  "channel": "https://api.twitch.tv/kraken/channels/freecodecamp"
+	}
+	},
+	{
+	"stream": null,
+	"display_name": "OgamingSC2",
+	"_links": {
+	  "self": "https://api.twitch.tv/kraken/streams/ogamingsc2",
+	  "channel": "https://api.twitch.tv/kraken/channels/ogamingsc2"
+	}
+	},
+	{
+	"stream": {
+	  "mature": false,
+	  "status": "RERUN: StarCraft 2 - Kane vs. HuK (ZvP) - WCS Season 3 Challenger AM - Match 4",
+	  "broadcaster_language": "en",
+	  "display_name": "ESL_SC2",
+	  "game": "StarCraft II",
+	  "language": "en",
+	  "_id": 30220059,
+	  "name": "esl_sc2",
+	  "created_at": "2012-05-02T09:59:20Z",
+	  "updated_at": "2016-09-17T06:02:57Z",
+	  "delay": null,
+	  "logo": "https://static-cdn.jtvnw.net/jtv_user_pictures/esl_sc2-profile_image-d6db9488cec97125-300x300.jpeg",
+	  "banner": null,
+	  "video_banner": "https://static-cdn.jtvnw.net/jtv_user_pictures/esl_sc2-channel_offline_image-5a8657f8393c9d85-1920x1080.jpeg",
+	  "background": null,
+	  "profile_banner": "https://static-cdn.jtvnw.net/jtv_user_pictures/esl_sc2-profile_banner-f8295b33d1846e75-480.jpeg",
+	  "profile_banner_background_color": "#050506",
+	  "partner": true,
+	  "url": "https://www.twitch.tv/esl_sc2",
+	  "views": 60843789,
+	  "followers": 135275,
+	  "_links": {
+	    "self": "https://api.twitch.tv/kraken/channels/esl_sc2",
+	    "follows": "https://api.twitch.tv/kraken/channels/esl_sc2/follows",
+	    "commercial": "https://api.twitch.tv/kraken/channels/esl_sc2/commercial",
+	    "stream_key": "https://api.twitch.tv/kraken/channels/esl_sc2/stream_key",
+	    "chat": "https://api.twitch.tv/kraken/chat/esl_sc2",
+	    "subscriptions": "https://api.twitch.tv/kraken/channels/esl_sc2/subscriptions",
+	    "editors": "https://api.twitch.tv/kraken/channels/esl_sc2/editors",
+	    "teams": "https://api.twitch.tv/kraken/channels/esl_sc2/teams",
+	    "videos": "https://api.twitch.tv/kraken/channels/esl_sc2/videos"
+	  }
+	},
+	"_links": {
+	  "self": "https://api.twitch.tv/kraken/streams/esl_sc2",
+	  "channel": "https://api.twitch.tv/kraken/channels/esl_sc2"
+	}
+	},
+	{
+	"stream": null,
+	"display_name": "noobs2ninjas",
+	"_links": {
+	  "self": "https://api.twitch.tv/kraken/streams/esl_sc2",
+	  "channel": "https://api.twitch.tv/kraken/channels/esl_sc2"
+	}
+	},
+	{
+	"error": "Not Found",
+	"status": 404,
+	"message": "Channel 'not-a-valid-account' does not exist"
+	}
+	];
+*/
+
+	var channels = ["freecodecamp","test_channel","ESL_SC2", "chessnetwork", "brunofin"],
+		channelData = [],
+		channelsProcessed = 0,
+		onlineTemplate = $('#online-tempate').html(),
+		offlineTemplate = $('#offline-tempate').html(),
+		notFoundTempate = $('#not-found-tempate').html(),
+		spinner = '<i class="fa fa-spinner fa-pulse fa-fw"></i>',
+		channelsHTML = '',
+		searchValue = '',
+		$channels = $('#channels'),
+		$searchForm = $('#search-form'),
+		$searchInput = $('#twitch-search'),
+		$searchButton = $('#search-btn'),
+		results = null;
+
+
+	channels.forEach(function(channel){
+		$.getJSON('https://wind-bow.hyperdev.space/twitch-api/streams/'+channel+'?callback=?', function(channelObj) {
+			console.log(channelObj);
+
+			if(channelObj.error != null){
+				channelsHTML += TemplateEngine(notFoundTempate, {
+								channelError: channelObj.error,
+								channelMessage: channelObj.message
+							});
+			}else if (channelObj.stream != null) {
+				channelsHTML += TemplateEngine(onlineTemplate, {
+								profileImage: channelObj.stream.channel.logo,
+								channelTitle: channel,
+								channelDesc: channelObj.stream.game + ' <br />fps: '
+								+channelObj.stream['average_fps']+' <br />viewers: '+channelObj.stream.viewers
+							});
+			}else {
+				//offline
+				channelsHTML += TemplateEngine(offlineTemplate, {
+								channelTitle: channel,
+							});
+			}
+
+			channelsProcessed++;
+			if(channelsProcessed === channels.length) {
+				$channels.html(channelsHTML);
+			}
+		});
+	});
+
+	function TemplateEngine(tpl, data) {
+	    var re = /<%([^%>]+)?%>/g, match;
+	    while(match = re.exec(tpl)) {
+	        tpl = tpl.replace(match[0], data[match[1]])
+	    }
+	    return tpl;
+	}
+
+</script>
+</body>
+</html>
