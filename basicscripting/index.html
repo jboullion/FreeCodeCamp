@@ -5,6 +5,7 @@
 
 //function rot13(str) { // LBH QVQ VG!
 /*
+//cheating lookup table :) faster but not in the spirit of the test
 	var rotLookup = {
 		'N': 'A',
 		'O': 'B',
@@ -38,6 +39,7 @@
 	});
 */
 /*
+//actual algorithm
 	return str.replace(/\w/g,function(char){
 		if(char.charCodeAt(0) >= 65 + 13){
 			//N-Z
