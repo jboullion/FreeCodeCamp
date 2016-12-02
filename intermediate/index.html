@@ -4,6 +4,34 @@
 <script>
 
 
+function myReplace(str, before, after) {
+	str = str.replace(before, function(val){
+		after = after.split('');
+
+		if (val[0] === val[0].toUpperCase()) {
+			after[0] = after[0].toUpperCase();
+		}else{
+			after[0] = after[0].toLowerCase();
+		}
+
+		return after.join('');
+	});
+
+	return str;
+}
+
+myReplace("Let us go to the store", "store", "mall");
+// should return "Let us go to the mall".
+myReplace("He is Sleeping on the couch", "Sleeping", "sitting");
+// should return "He is Sitting on the couch".
+myReplace("This has a spellngi error", "spellngi", "spelling");
+// should return "This has a spelling error".
+myReplace("His name is Tom", "Tom", "john");
+// should return "His name is John".
+myReplace("Let us get back to more Coding", "Coding", "algorithms");
+// should return "Let us get back to more Algorithms".
+
+/*
 function whatIsInAName(collection, source) {
 	// What's in a name?
 	var arr = [];
@@ -36,7 +64,7 @@ whatIsInAName([{ "a": 1, "b": 2 }, { "a": 1 }, { "a": 1, "b": 2, "c": 2 }], { "a
 // should return [{ "a": 1, "b": 2 }, { "a": 1, "b": 2, "c": 2 }].
 whatIsInAName([{ "a": 1, "b": 2 }, { "a": 1 }, { "a": 1, "b": 2, "c": 2 }], { "a": 1, "c": 2 });
 // should return [{ "a": 1, "b": 2, "c": 2 }].
-
+*/
 /*
 function convertToRoman(num) {
 
