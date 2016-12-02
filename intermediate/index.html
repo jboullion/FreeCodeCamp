@@ -4,7 +4,40 @@
 <script>
 
 
+function whatIsInAName(collection, source) {
+	// What's in a name?
+	var arr = [];
+	// Only change code below this line
+	for(var c = 0; c < collection.length; c++){
+		var sameProps = true;
 
+		//Object.keys(source) could also get an array to loop through
+		for (var prop in source) {
+			if (! collection[c].hasOwnProperty(prop) || source[prop] != collection[c][prop]) {
+				sameProps = false;
+				break;
+			}
+		}
+
+		if(sameProps){
+			arr.push(collection[c]);
+		}
+	}
+	// Only change code above this line
+	return arr;
+}
+
+//cannot use "dot" notation on these props
+whatIsInAName([{ first: "Romeo", last: "Montague" }, { first: "Mercutio", last: null }, { first: "Tybalt", last: "Capulet" }], { last: "Capulet" });
+// should return [{ first: "Tybalt", last: "Capulet" }].
+whatIsInAName([{ "a": 1 }, { "a": 1 }, { "a": 1, "b": 2 }], { "a": 1 });
+// should return [{ "a": 1 }, { "a": 1 }, { "a": 1, "b": 2 }].
+whatIsInAName([{ "a": 1, "b": 2 }, { "a": 1 }, { "a": 1, "b": 2, "c": 2 }], { "a": 1, "b": 2 });
+// should return [{ "a": 1, "b": 2 }, { "a": 1, "b": 2, "c": 2 }].
+whatIsInAName([{ "a": 1, "b": 2 }, { "a": 1 }, { "a": 1, "b": 2, "c": 2 }], { "a": 1, "c": 2 });
+// should return [{ "a": 1, "b": 2, "c": 2 }].
+
+/*
 function convertToRoman(num) {
 
 	var numeralLookup = [
@@ -13,21 +46,15 @@ function convertToRoman(num) {
 			['C','CC','CCC','CD','D','DC','DCC','DCCC','CM'],
 			['M', 'MM', 'MMM']
 	];
-/*
-1984 into 1000, 900, 80 and 4
-1000 = M
-900 = CM
-80 = LXXX
-4 = IV
 
-1000 + 900 + 80 + 4 = 1984, so 1984 = MCMLXXXIV
-*/
+
+
 	var numArr = num.toString(),
 		romanString = '';
 
 	for(var i = 0; i < numArr.length; i++ ){
 		// Roman = i = lookup needed
-		
+
 		// 1 6 = X VI
 		// X = 0 = numeralLookup[1][0]
 		// VI = 1 = numeralLookup[0][5]
@@ -56,6 +83,9 @@ function convertToRoman(num) {
 	return romanString;
 
 }
+*/
+//1984 into 1000, 900, 80 and 4
+//1000 + 900 + 80 + 4 = 1984, so 1984 = MCMLXXXIV
 
 //convertToRoman(2);
 // should return "II".
