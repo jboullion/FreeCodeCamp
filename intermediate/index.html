@@ -4,6 +4,117 @@
 <script>
 
 
+
+function convertToRoman(num) {
+
+	var numeralLookup = [
+			['I','II','III','IV','V','VI','VII','VIII','IX'],
+			['X','XX','XXX','XL','L','LX','LXX','LXXX','XC'],
+			['C','CC','CCC','CD','D','DC','DCC','DCCC','CM'],
+			['M', 'MM', 'MMM']
+	];
+/*
+1984 into 1000, 900, 80 and 4
+1000 = M
+900 = CM
+80 = LXXX
+4 = IV
+
+1000 + 900 + 80 + 4 = 1984, so 1984 = MCMLXXXIV
+*/
+	var numArr = num.toString(),
+		romanString = '';
+
+	for(var i = 0; i < numArr.length; i++ ){
+		// Roman = i = lookup needed
+		
+		// 1 6 = X VI
+		// X = 0 = numeralLookup[1][0]
+		// VI = 1 = numeralLookup[0][5]
+
+		// 6 4 9 = DC XL IX
+		// DC = 0 = numeralLookup[2][0]
+		// XL = 1 = numeralLookup[1][5]
+		// IX = 2 = numeralLookup[0][8]
+
+		// 8 3 = LXXX III
+		// LXXX = 0 = numeralLookup[1][7]
+		// III = 1 = numeralLookup[0][2]
+
+		// 5 0 0 = D
+		// D = 0 = numeralLookup[2][0]
+		// '' = 1 = continue
+		// '' = 2 = continue
+
+		if(numArr[i]-1 < 0) continue;
+
+		romanString += numeralLookup[numArr.length - 1 - i][numArr[i]-1];
+
+	}
+
+	console.log(romanString);
+	return romanString;
+
+}
+
+//convertToRoman(2);
+// should return "II".
+//convertToRoman(3);
+// should return "III".
+//convertToRoman(4);
+// should return "IV".
+//convertToRoman(5);
+// should return "V".
+//convertToRoman(9);
+// should return "IX".
+/*
+convertToRoman(12);
+// should return "XII".
+convertToRoman(16);
+// should return "XVI".
+convertToRoman(29);
+//  should return "XXIX".
+convertToRoman(44);
+//  should return "XLIV".
+convertToRoman(45);
+//  should return "XLV"
+convertToRoman(68);
+//  should return "LXVIII"
+
+convertToRoman(83);
+//  should return "LXXXIII"
+convertToRoman(97);
+//  should return "XCVII"
+convertToRoman(99);
+//  should return "XCIX"
+
+convertToRoman(500);
+//  should return "D"
+convertToRoman(501);
+//  should return "DI"
+convertToRoman(649);
+//  should return "DCXLIX"
+convertToRoman(798);
+//  should return "DCCXCVIII"
+convertToRoman(891);
+//  should return "DCCCXCI"
+convertToRoman(1000);
+
+//  should return "M"
+convertToRoman(1004);
+//  should return "MIV"
+convertToRoman(1006);
+//  should return "MVI"
+convertToRoman(1023);
+//  should return "MXXIII"
+convertToRoman(2014);
+//  should return "MMXIV"
+convertToRoman(3999);
+//  should return "MMMCMXCIX"
+*/
+
+/*
+
 function diffArray(arr1, arr2) {
 	var newArr = null;
 
@@ -43,7 +154,7 @@ diffArray([], ["snuffleupagus", "cookie monster", "elmo"]);
 //should return an array.should return ["snuffleupagus", "cookie monster", "elmo"].
 diffArray([1, "calf", 3, "piglet"], [7, "filly"]);
 //should return an array.should return [1, "calf", 3, "piglet", 7, "filly"].
-
+*/
 /*
 function sumAll(arr) {
 
