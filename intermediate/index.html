@@ -4,6 +4,45 @@
 <script>
 
 
+function translatePigLatin(str) {
+	var vowels = ['a', 'e', 'i', 'o', 'u'],
+		strArr = str.split(''),
+		newString = '';
+
+	if(vowels.indexOf(strArr[0]) == -1){
+		//no vowel 1
+		var firstChars = strArr.shift();
+		if(vowels.indexOf(strArr[0]) == -1){
+			firstChars += strArr.shift();
+			newString = strArr.join('')+firstChars+'ay';
+		}else{
+			newString = strArr.join('')+firstChars+'ay';
+		}
+
+
+	} else {
+		//vowels
+		newString = strArr.join('')+'way';
+
+	}
+
+	console.log(newString);
+	return newString;
+}
+
+translatePigLatin("consonant");
+translatePigLatin("california");
+//should return "aliforniacay".
+translatePigLatin("paragraphs");
+// should return "aragraphspay".
+translatePigLatin("glove");
+// should return "oveglay".
+translatePigLatin("algorithm");
+// should return "algorithmway".
+translatePigLatin("eight");
+// should return "eightway".
+
+/*
 function myReplace(str, before, after) {
 	str = str.replace(before, function(val){
 		after = after.split('');
@@ -30,7 +69,7 @@ myReplace("His name is Tom", "Tom", "john");
 // should return "His name is John".
 myReplace("Let us get back to more Coding", "Coding", "algorithms");
 // should return "Let us get back to more Algorithms".
-
+*/
 /*
 function whatIsInAName(collection, source) {
 	// What's in a name?
