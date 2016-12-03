@@ -4,6 +4,30 @@
 <script>
 
 
+function fearNotLetter(str) {
+	var lastCharCode = str.charCodeAt(0);
+
+	for(var i = 1; i < str.length; i++){
+
+		if(++lastCharCode != str.charCodeAt(i)){
+			return String.fromCharCode(lastCharCode);
+		}
+
+	}
+
+	return undefined;
+}
+
+fearNotLetter("abce");
+// should return "d".
+fearNotLetter("abcdefghjklmno");
+// should return "i".
+fearNotLetter("bcd");
+// should return undefined.
+fearNotLetter("yz");
+// should return undefined.
+
+/*
 function pairElement(str) {
 	DNArr = [],
 	elementArr = str.split('');
@@ -26,7 +50,6 @@ function pairElement(str) {
 
 	})
 
-	console.log(DNArr);
 	return DNArr;
 }
 
@@ -38,7 +61,7 @@ pairElement("GCG");
 // should return [["T","A"],["T","A"],["G","C"],["A","T"],["G","C"]].
 //pairElement("CTCTA");
 // should return [["C","G"],["T","A"],["C","G"],["T","A"],["A","T"]].
-
+*/
 
 /*
 function translatePigLatin(str) {
