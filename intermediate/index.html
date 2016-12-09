@@ -3,6 +3,42 @@
 <body>
 <script>
 
+function sumFibs(num) {
+	//1,1,2,3,5,8,13
+	var fibPrevious = 1,
+		fibStep = 1,
+		fibCurrent = 1,
+		sum = fibPrevious;
+
+	while(fibCurrent <= num){
+		//only add odd numbers
+		if(fibCurrent % 2 != 0){
+			sum += fibCurrent;
+		}
+
+		//update the fib sequence
+		fibStep = fibPrevious; //hold our current fibPrevious value for adding to. We do this because we need an intermidiary between our previous and current steps
+		fibPrevious = fibCurrent; //our previous fib number will always be equal to the fib number we just used
+		fibCurrent += fibStep; //we need to increment our current fib number with the previous fib number
+	}
+
+	return sum;
+}
+
+sumFibs(1)
+//should return a number.
+sumFibs(1000)
+//should return 1785.
+sumFibs(4000000)
+//should return 4613732.
+sumFibs(4)
+//should return 5.
+sumFibs(75024)
+//should return 60696.
+sumFibs(75025)
+//should return 135721.
+
+
 /*
 function spinalCase(str) {
 	// "It's such a fine line between stupid, and clever."
