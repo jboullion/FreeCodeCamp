@@ -4,7 +4,26 @@
 <script>
 
 
+function findElement(arr, func) {
 
+	for(var i = 0; i < arr.length; i++){
+		if(func(arr[i])){
+			return arr[i];
+		}
+	}
+
+	return undefined;
+
+}
+
+
+findElement([1, 3, 5, 8, 9, 10], function(num) { return num % 2 === 0; });
+// should return 8.
+findElement([1, 3, 5, 9], function(num) { return num % 2 === 0; });
+// should return undefined.
+
+
+/*
 function smallestCommons(arr) {
 		//order our array so we know which number is smallest and which is largest
 	var sortedArr = arr.sort(),
@@ -32,7 +51,7 @@ function smallestCommons(arr) {
 		multiple += sortedArr[1];
 	}
 
-	//console.log(ourDivisor);
+	console.log(ourDivisor);
 	return ourDivisor;
 }
 
@@ -45,7 +64,7 @@ smallestCommons([1, 13]);
 // should return 360360.
 smallestCommons([23, 18]);
 // should return 6056820.
-
+*/
 
 /*
 function sumPrimes(num) {
