@@ -5,8 +5,49 @@
 
 
 
+function smallestCommons(arr) {
+		//order our array so we know which number is smallest and which is largest
+	var sortedArr = arr.sort(),
+		//the divisor that successfully divides all numbers in the range to 0
+		ourDivisor = 0,
+		//smallest multiple will always be the largest number * 1;
+		multiple = sortedArr[1];
+
+	while(ourDivisor === 0) {
+		//check all numbers in our range
+		for(var i = sortedArr[0]; i <= sortedArr[1]; i++ ){
+			if(multiple % i !== 0 ){
+				//if we find even one value between our set that is not perfectly divisible, we can skip to the next multiple
+				break;
+			}
+
+			//if we make it all the way to the last value (sortedArr[1]) then we know that this multiple was perfectly divisible into all values in the range
+			if(i == sortedArr[1]){
+				ourDivisor = multiple;
+			}
+
+		}
+
+		//move to the next multiple, we can just add the highest number.
+		multiple += sortedArr[1];
+	}
+
+	//console.log(ourDivisor);
+	return ourDivisor;
+}
 
 
+smallestCommons([1, 5]);
+// should return 60.
+smallestCommons([5, 1]);
+// should return 60.
+smallestCommons([1, 13]);
+// should return 360360.
+smallestCommons([23, 18]);
+// should return 6056820.
+
+
+/*
 function sumPrimes(num) {
 	var sum = 0;
 
@@ -32,6 +73,7 @@ sumPrimes(10);
 //should return 17.
 sumPrimes(977);
 //should 73156
+*/
 
 /*
 function sumFibs(num) {
