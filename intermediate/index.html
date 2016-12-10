@@ -3,13 +3,18 @@
 <body>
 <script>
 
+
+
+
+
 function sumPrimes(num) {
 	var sum = 0;
 
 	loop1:
 	for(var i = 2; i <= num; i++) {
 		//for i gives us a number to check that is less than or equal to num
-		for(var j = 2; j < i; j++){
+		//we only need to check half the total value of i since any greater than that will not divide i evenly. I added the +1 since the rounding can cause issues
+		for(var j = 2; j < Math.floor(i / 2) + 1; j++){
 			//check if this number (i) is divisible by any other number. To do that we loop through all of the numbers below it.
 			if(i % j === 0){
 				continue loop1;
@@ -18,6 +23,7 @@ function sumPrimes(num) {
 		//if we got this far it means this number was not divisible by ANYTHING so it is a prime
 		sum += i;
 	}
+	console.log(sum);
 	return sum;
 }
 
