@@ -3,6 +3,31 @@
 <body>
 <script>
 
+function sumPrimes(num) {
+	var sum = 0;
+
+	loop1:
+	for(var i = 2; i <= num; i++) {
+		//for i gives us a number to check that is less than or equal to num
+		for(var j = 2; j < i; j++){
+			//check if this number (i) is divisible by any other number. To do that we loop through all of the numbers below it.
+			if(i % j === 0){
+				continue loop1;
+			}
+		}
+		//if we got this far it means this number was not divisible by ANYTHING so it is a prime
+		sum += i;
+	}
+	return sum;
+}
+
+
+sumPrimes(10);
+//should return 17.
+sumPrimes(977);
+//should 73156
+
+/*
 function sumFibs(num) {
 	//1,1,2,3,5,8,13
 	var fibPrevious = 1,
@@ -37,7 +62,7 @@ sumFibs(75024)
 //should return 60696.
 sumFibs(75025)
 //should return 135721.
-
+*/
 
 /*
 function spinalCase(str) {
