@@ -4,6 +4,32 @@
 <script>
 
 
+function steamrollArray(arr) {
+	// I'm a steamroller, baby
+	var steamRollArr = [].concat.apply([], arr);
+
+	for(var i = 0; i < steamRollArr.length; i++){
+		if(Array.isArray(steamRollArr[i])){
+			steamRollArr[i] = steamRollArr[i][0][0];
+		}
+	}
+
+	return steamRollArr;
+}
+
+
+
+steamrollArray([[["a"]], [["b"]]]);
+// should return ["a", "b"].
+steamrollArray([1, [2], [3, [[4]]]]);
+// should return [1, 2, 3, 4].
+steamrollArray([1, [], [3, [[4]]]]);
+// should return [1, 3, 4].
+steamrollArray([1, {}, [3, [[4]]]]);
+// should return [1, {}, 3, 4].
+
+
+/*
 function dropElements(arr, func) {
 	// Drop them elements.
 	var theTruth = [];
@@ -38,7 +64,7 @@ dropElements([1, 2, 3, 7, 4], function(n) {return n > 3;});
 // should return [7, 4].
 dropElements([1, 2, 3, 9, 2], function(n) {return n > 2;});
 // should return [3, 9, 2].
-
+*/
 
 /*
 function findElement(arr, func) {
