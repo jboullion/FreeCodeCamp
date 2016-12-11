@@ -3,7 +3,62 @@
 <body>
 <script>
 
+/*
+function add(x){
+  return function(y){
+    return x + y;
+  };
+}
 
+var addTwo = add(2);
+
+console.log(addTwo(4));
+console.log(add(3)(4));
+*/
+
+function addTogether(a, b) {
+
+	if(typeof a !== 'number'){
+		console.log('undefined');
+		return undefined;
+	}
+
+	if(! b){
+		return function(c){
+			if(typeof c !== 'number'){
+				console.log('undefined');
+				return undefined;
+			}
+			console.log('no b = '+(a + c));
+			return a + c;
+		};
+	}else{
+
+		if(typeof b !== 'number'){
+			console.log('undefined');
+			return undefined;
+		}
+
+		console.log('a + b = '+(a + b));
+		return a + b;
+	}
+
+}
+
+addTogether(2, 3);
+// should return 5.
+addTogether(2)(3);
+// should return 5.
+addTogether("http://bit.ly/IqT6zt");
+// should return undefined.
+addTogether(2, "3");
+// should return undefined.
+addTogether(2)([3]);
+// should return undefined.
+
+
+
+/*
 function truthCheck(collection, pre) {
 	// Is everyone being true?
 	for(var c = 0; c < collection.length; c++){
@@ -33,7 +88,7 @@ truthCheck([{"single": "double"}, {"single": undefined}], "single");
 // should return false
 truthCheck([{"single": "double"}, {"single": NaN}], "single");
 // should return false
-
+*/
 
 
 /*
