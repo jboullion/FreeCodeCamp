@@ -3,19 +3,85 @@
 <body>
 <script>
 
-/*
-function add(x){
-  return function(y){
-    return x + y;
-  };
+
+function telephoneCheck(str) {
+	// Good luck!
+	/*
+		VALID FORMATS
+		555-555-5555
+		(555)555-5555
+		(555) 555-5555
+		555 555 5555
+		5555555555
+		1 555 555 5555
+	*/
+
+	var patt = /^1? ?(\(\d{3}\)|\d{3})[-| ]?\d{3}[-| ]?\d{4}$/;
+	var res = patt.test(str);
+
+	console.log(res);
+	return res;
 }
 
-var addTwo = add(2);
-
-console.log(addTwo(4));
-console.log(add(3)(4));
+/*
+telephoneCheck("2(757)622-7382");
+// should return false.
+telephoneCheck("(555)5(55?)-5555");
+// should return false.
+telephoneCheck("27576227382");
+// should return false.
+telephoneCheck("(275)76227382");
+// should return false.
+telephoneCheck("2 757 622-7382");
+// should return false.
+telephoneCheck("1 555)555-5555");
+// should return false.
+telephoneCheck("555)-555-5555");
+// should return false.
+telephoneCheck("(555-555-5555");
+// should return false.
+telephoneCheck("555-555-5555");
+// should return a boolean.
+telephoneCheck("1 555-555-5555");
+// should return true.
+telephoneCheck("1 (555) 555-5555");
+// should return true.
+telephoneCheck("5555555555");
+// should return true.
+telephoneCheck("555-555-5555");
+// should return true.
+telephoneCheck("(555)555-5555");
+// should return true.
+telephoneCheck("1(555)555-5555");
+// should return true.
+telephoneCheck("555-5555");
+// should return false.
+telephoneCheck("5555555");
+// should return false.
+//telephoneCheck("1 555 555 5555");
+// should return true.
+//telephoneCheck("1 456 789 4444");
+// should return true.
+//telephoneCheck("123**&!!asdf#");
+// should return false.
+//telephoneCheck("55555555");
+// should return false.
+//telephoneCheck("(6505552368)");
+// should return false
+//telephoneCheck("2 (757) 622-7382");
+// should return false.
+//telephoneCheck("0 (757) 622-7382");
+// should return false.
+//telephoneCheck("-1 (757) 622-7382");
+// should return false
+//telephoneCheck("10 (757) 622-7382");
+// should return false.
+//telephoneCheck("2(757)6227382");
+// should return false.
 */
 
+
+/*
 function addTogether(a, b) {
 
 	if(typeof a !== 'number'){
@@ -55,7 +121,7 @@ addTogether(2, "3");
 // should return undefined.
 addTogether(2)([3]);
 // should return undefined.
-
+*/
 
 
 /*
