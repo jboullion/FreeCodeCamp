@@ -4,6 +4,115 @@
 <script>
 
 
+function checkCashRegister(price, cash, cid) {
+	var change = 0,
+		totalInDrawer = 0,
+		//set our keyed object with their values
+		monies = {
+			"PENNY": 0.01,
+			"NICKEL": 0.05,
+			"DIME": 0.10,
+			"QUARTER": 0.25,
+			"ONE": 1.00,
+			"FIVE": 5.00,
+			"TEN": 10.00,
+			"TWENTY": 20.00,
+			"ONE HUNDRED": 100.00
+		},
+		//we will populate this with the monies we are giving back to the customer
+		changeArr = [];
+
+	//we can return right away if they did not give us enough money or they gave exact change.
+	if(price > cash){
+		//ask for more monies
+		change = (price - cash).toFixed(2);
+		return "Still Owe: "+change;
+	}else if (price === cash) {
+		//exact change is always nice
+		return "Sale Complete!";
+	}
+
+	//we know the price must be less than the cash given because of the above checks.
+	//now we can find our change value
+	change = parseFloat((cash - price).toFixed(2));
+
+	//at this point we also should know how much we have in our drawer. Add that up here.
+	for(var c = 0; c < cid.length; c++){
+		totalInDrawer += cid[c][1];
+	}
+
+	//check our drawer value against the change value
+	if(totalInDrawer < change){
+		//not enough monies in drawer!!
+		//this will not catch all Insufficient funds, but it should catch some.
+		//we still need to check if we can actually give change from what we have in our drawer
+		return "Insufficient Funds";
+	}else if (totalInDrawer === change) {
+		//give them all the monies in the drawer!
+		return "Closed";
+	}
+
+	//we made it this far so now we know they need change and we have enough change to give them.
+	//Now we just have to figure out what demoninations we need to give out
+	//lets loop through our cid one more time to get our monies out
+	for(c = cid.length-1; c >= 0; c--){
+		if(cid[c][1] > 0){
+			var billName = cid[c][0],
+				billValue = monies[billName],
+				billCount = Math.floor(Math.floor(((change / billValue) + 0.00001) * 100) / 100), //hax to get floating point rounded out
+				billAmount = billCount * billValue;
+
+			if( billCount >= 1 ){
+
+				if(cid[c][1] <= billAmount){
+					//we do not have enough of this bill, give what we can
+					billAmount = cid[c][1];
+				}else{
+					//we have enough of this bill to give as much as we need
+					billAmount = billAmount;
+				}
+
+				//now we know we need to give them some of these bills
+				changeArr.push([billName, parseFloat(billAmount.toFixed(2))]);
+
+				//subtract this amount from the change due
+				change -= billAmount;
+			}
+		}
+	}
+
+	if(change > 0){
+		//if we get to this point and we still have change, it means we didn't have correct change
+		return "Insufficient Funds";
+	}
+
+	//holy smokes, we have enough change to return to them. Yay!
+	console.log(changeArr);
+	return changeArr;
+}
+
+
+//checkCashRegister(19.50, 20.00, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.10], ["QUARTER", 4.25], ["ONE", 90.00], ["FIVE", 55.00], ["TEN", 20.00], ["TWENTY", 60.00], ["ONE HUNDRED", 100.00]]);
+// should return an array.
+//checkCashRegister(19.50, 20.00, [["PENNY", 0.01], ["NICKEL", 0], ["DIME", 0], ["QUARTER", 0], ["ONE", 0], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]]);
+// should return a string.
+//checkCashRegister(19.50, 20.00, [["PENNY", 0.50], ["NICKEL", 0], ["DIME", 0], ["QUARTER", 0], ["ONE", 0], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]]);
+// should return a string.
+//checkCashRegister(19.50, 20.00, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.10],["QUARTER", 4.25], ["ONE", 90.00], ["FIVE", 55.00], ["TEN", 20.00], ["TWENTY", 60.00], ["ONE HUNDRED", 100.00]]);
+// should return [["QUARTER", 0.50]].
+//checkCashRegister(3.26, 100.00, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.10],
+//["QUARTER", 4.25], ["ONE", 90.00], ["FIVE", 55.00], ["TEN", 20.00], ["TWENTY", 60.00], ["ONE HUNDRED", 100.00]]);
+// should return [["TWENTY", 60.00], ["TEN", 20.00], ["FIVE", 15.00], ["ONE", 1.00], ["QUARTER", 0.50], ["DIME", 0.20], ["PENNY", 0.04]].
+//checkCashRegister(19.50, 20.00, [["PENNY", 0.01], ["NICKEL", 0], ["DIME", 0], ["QUARTER", 0], ["ONE", 0], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]]);
+// should return "Insufficient Funds".
+//checkCashRegister(19.50, 20.00, [["PENNY", 0.01], ["NICKEL", 0], ["DIME", 0], ["QUARTER", 0], ["ONE", 1.00], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]]);
+// should return "Insufficient Funds".
+//checkCashRegister(19.50, 20.00, [["PENNY", 0.50], ["NICKEL", 0], ["DIME", 0], ["QUARTER", 0], ["ONE", 0], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]]);
+// should return "Closed".
+
+
+
+/*
 function sym() {
 
 	//get our arguments from the sorta-array known as arguments
@@ -15,24 +124,24 @@ function sym() {
 			smaller = a.length > b.length?b:a,
 			diffArr = [];
 
-/**
-now we just loop through each array and get the unique values from each.
-Also avoid adding duplicates to our diffArr.
-I setup 2 different methods to avoid a second loop. Although this is micro optimization at it's "finest"
-*/
-/*		//2 loop
-		for(var i = 0; i < a.length; i++){
-			if (b.indexOf(a[i]) === -1 && diffArr.indexOf(a[i]) === -1) {
-				diffArr.push(a[i]);
-			}
-		}
 
-		for(var i = 0; i < b.length; i++){
-			if (a.indexOf(b[i]) === -1 && diffArr.indexOf(b[i]) === -1) {
-				diffArr.push(b[i]);
-			}
-		}
-*/
+// now we just loop through each array and get the unique values from each.
+// Also avoid adding duplicates to our diffArr.
+// I setup 2 different methods to avoid a second loop. Although this is micro optimization at it's "finest"
+//
+// 		//2 loop
+// 		for(var i = 0; i < a.length; i++){
+// 			if (b.indexOf(a[i]) === -1 && diffArr.indexOf(a[i]) === -1) {
+// 				diffArr.push(a[i]);
+// 			}
+// 		}
+//
+// 		for(var i = 0; i < b.length; i++){
+// 			if (a.indexOf(b[i]) === -1 && diffArr.indexOf(b[i]) === -1) {
+// 				diffArr.push(b[i]);
+// 			}
+// 		}
+
 
  		//1 loop
 		for(var i = 0; i < larger.length; i++){
@@ -69,7 +178,7 @@ sym([3, 3, 3, 2, 5], [2, 1, 5, 7], [3, 4, 6, 6], [1, 2, 3]);
 //sym([3, 3, 3, 2, 5], [2, 1, 5, 7], [3, 4, 6, 6], [1, 2, 3], [5, 3, 9, 8], [1]);
 // should return [1, 2, 4, 5, 6, 7, 8, 9].
 // should contain only eight elements.
-
+*/
 /*
 function telephoneCheck(str) {
 	// Good luck!
