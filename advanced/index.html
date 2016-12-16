@@ -3,7 +3,119 @@
 <body>
 <script>
 
+function compare(a,b) {
+	if (a.last_nom < b.last_nom)
+		return -1;
+	if (a.last_nom > b.last_nom)
+		return 1;
+	return 0;
+}
 
+
+function updateInventory(arr1, arr2) {
+    // All inventory must be accounted for or you're fired!
+	/**
+	 * This attempt I did without the object. Not as much improvement as I hoped so I left both in
+	 */
+	var bigArr = arr1.concat(arr2),
+		keyArr = [],
+		inventoryArr = [],
+		sortedArray = [];
+
+	for(var i = 0; i < bigArr.length; i++){
+
+		if(keyArr.indexOf(bigArr[i][1]) > -1){
+			inventoryArr[keyArr.indexOf(bigArr[i][1])][1] +=  bigArr[i][0];
+		}else{
+			keyArr.push(bigArr[i][1]);
+			inventoryArr.push([bigArr[i][1], bigArr[i][0]]);
+		}
+	}
+
+	//since we have our names in the [0] place in each array, we can sort it easily
+	inventoryArr = inventoryArr.sort()
+
+	//now we have to flip our alpha sorted values so the qty comes first
+	for(var i = 0; i < inventoryArr.length; i++){
+		sortedArray.push([inventoryArr[i][1], inventoryArr[i][0]]);
+	}
+
+	console.log(sortedArray);
+
+
+/**
+ * The below uses an object to ensure single keys, but seemed too verbose
+ *
+	//put together 1 bigArray with all values
+	var bigArr = arr1.concat(arr2),
+		inventoryObj = {},
+		inventoryArr = [],
+		sortedArray = [];
+
+	//loop through that bigArray
+	for(var i = 0; i < bigArr.length; i++){
+
+		//if this item has already been counted once, add to it
+		//could make this ternary, but I like the seperation
+		if(inventoryObj[bigArr[i][1]]){
+			inventoryObj[bigArr[i][1]] += bigArr[i][0];
+		}else{
+			inventoryObj[bigArr[i][1]] = bigArr[i][0];
+		}
+
+	}
+
+	//now transform our obj into a correctly formatted 2D array
+	Object.keys(inventoryObj).map(function(val){
+		inventoryArr.push([val, inventoryObj[val]]); //name first
+		//inventoryArr.push([inventoryObj[val], val]); //qty first
+	});
+
+	//since we have our names in the [0] place in each array, we can sort it easily
+	inventoryArr = inventoryArr.sort()
+
+	//now we have to flip our alpha sorted values so the qty comes first
+	for(var i = 0; i < inventoryArr.length; i++){
+		sortedArray.push([inventoryArr[i][1], inventoryArr[i][0]]);
+	}
+
+	console.log(sortedArray);
+
+	return sortedArray;
+	*/
+}
+
+// Example inventory lists
+/*
+var curInv = [
+    [21, "Bowling Ball"],
+    [2, "Dirty Sock"],
+    [1, "Hair Pin"],
+    [5, "Microphone"]
+];
+
+var newInv = [
+    [2, "Hair Pin"],
+    [3, "Half-Eaten Apple"],
+    [67, "Bowling Ball"],
+    [7, "Toothpaste"]
+];
+*/
+
+//The function updateInventory should return an array.
+//var inventory = updateInventory([[21, "Bowling Ball"], [2, "Dirty Sock"], [1, "Hair Pin"], [5, "Microphone"]], [[2, "Hair Pin"], [3, "Half-Eaten Apple"], [67, "Bowling Ball"], [7, "Toothpaste"]]).length;
+//console.log(inventory);
+// should return an array with a length of 6.
+//updateInventory([[21, "Bowling Ball"], [2, "Dirty Sock"], [1, "Hair Pin"], [5, "Microphone"]], [[2, "Hair Pin"], [3, "Half-Eaten Apple"], [67, "Bowling Ball"], [7, "Toothpaste"]]);
+// should return [[88, "Bowling Ball"], [2, "Dirty Sock"], [3, "Hair Pin"], [3, "Half-Eaten Apple"], [5, "Microphone"], [7, "Toothpaste"]].
+//updateInventory([[21, "Bowling Ball"], [2, "Dirty Sock"], [1, "Hair Pin"], [5, "Microphone"]], []);
+// should return [[21, "Bowling Ball"], [2, "Dirty Sock"], [1, "Hair Pin"], [5, "Microphone"]].
+//updateInventory([], [[2, "Hair Pin"], [3, "Half-Eaten Apple"], [67, "Bowling Ball"], [7, "Toothpaste"]]);
+// should return [[67, "Bowling Ball"], [2, "Hair Pin"], [3, "Half-Eaten Apple"], [7, "Toothpaste"]].
+//updateInventory([[0, "Bowling Ball"], [0, "Dirty Sock"], [0, "Hair Pin"], [0, "Microphone"]], [[1, "Hair Pin"], [1, "Half-Eaten Apple"], [1, "Bowling Ball"], [1, "Toothpaste"]]);
+// should return [[1, "Bowling Ball"], [0, "Dirty Sock"], [1, "Hair Pin"], [1, "Half-Eaten Apple"], [0, "Microphone"], [1, "Toothpaste"]].
+
+/*
 function checkCashRegister(price, cash, cid) {
 	var change = 0,
 		totalInDrawer = 0,
@@ -109,7 +221,7 @@ function checkCashRegister(price, cash, cid) {
 // should return "Insufficient Funds".
 //checkCashRegister(19.50, 20.00, [["PENNY", 0.50], ["NICKEL", 0], ["DIME", 0], ["QUARTER", 0], ["ONE", 0], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]]);
 // should return "Closed".
-
+*/
 
 
 /*
