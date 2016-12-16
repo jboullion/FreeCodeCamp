@@ -3,20 +3,116 @@
 <body>
 <script>
 
-function compare(a,b) {
-	if (a.last_nom < b.last_nom)
-		return -1;
-	if (a.last_nom > b.last_nom)
-		return 1;
-	return 0;
+Math.factor = function(num){
+	var rval = 1;
+    for (var i = 2; i <= num; i++)
+        rval = rval * i;
+    return rval;
 }
 
+//https://github.com/FreeCodeCamp/FreeCodeCamp/wiki/Algorithm-No-Repeats-Please
+function permAlone(str) {
 
-function updateInventory(arr1, arr2) {
+	//I was hoping to be clever and figure out some math trick,
+	var perms = [],
+		diff = 0;
+
+	//aab
+	//[a, a, b] [a, b, a] // 2 x 1 == 2 * 3 == 6
+	//[a ,a, b] [a ,b, a]
+	//[b ,a, a] [b ,a, a]
+
+	//abcd
+	//[a, b, c, d] [a, b, d, c] [a, c, b, d] [a, c, d, b] [a, d, c, b] [a, d, b, c] // 3 X 2 X 1 == 6 x 4 = 24
+	//[b, a, c, d] [b, a, d, c] [b, c, a, d] [b, c, d, a] [b, d, c, a] [b, d, a, c]
+	//2 more times
+
+	//abcde
+	//[a, b, c, d, e] [a, b, d, c, e] [a, c, b, d, e] [a, c, d, b, e] [a, d, c, b, e] [a, d, b, c, e] ...24  // 4 x 3 X 2 X 1 == 24 * 5 == 120
+	//4 more times
+
+	//abcdef
+	//[a, b, c, d, e, f] [a, b, d, c, e, f] ...120  // 4 x 3 X 2 X 1 == 120 * 6 == 720
+	//4 more times
+
+	//notice the TOTAL combinations from the previous string length is then being multiplied by the string length
+
+	//! == factoral
+	//(str.length-1)! x str.length
+
+	var factoral = Math.factor(str.length-1);
+	var totalCombinations = factoral * str.length; //all POSSIBLE combinations. Not unique. This value is just for reference / fun
+
+	//console.log(factoral * str.length);
+	//console.log(factoral);
+	//console.log(str.length);
+
+	//for(var f = 0; f < factoral; f++){
+		var perm = [];
+
+		//perm[0] = [[str[0]]];
+		//perm[1] = [[str[0],str[1]],                                                         [str[1],str[0]]];
+		//perm[2] = [[str[2],str[0],str[1]],[str[0],str[2],str[1]],[str[0],str[1],str[2]],  [str[2],str[1],str[0]],[str[1],str[2],str[0]],[str[1],str[0],str[2]]];
+
+		perm[0] = [[str[0]]]; //== [['a']] ==> [['ba'], ['ab']]
+		console.log(perm);
+		for(var l = 1; l < str.length; l++){
+
+			for(var p = 0; p <= l; p++){
+
+				var temp = str;
+
+				temp.splice(p, 0, str[p]);
+				console.log(temp);
+				//console.log(temp);
+				//perm[l].push(temp);
+
+			}
+			console.log(perm);
+		}
+
+		//str.substr(1) + str.substr(0, 1);
+		//str = str.substr(f, 1);
+
+		//console.log(perm);
+		//perms.push(perm);
+
+	//}
+
+	//console.log(perms);
+
+	return str;
+}
+
+//permAlone("aab");
+// should return a number.
+permAlone("aab");
+// should return 2.
+//permAlone("aaa");
+// should return 0.
+
+//permAlone("aabb");
+// should return 8.
+//permAlone("abcdefa");
+// should return 3600.
+//permAlone("abfdefa");
+// should return 2640.
+//permAlone("zzzzzzzz");
+// should return 0.
+//permAlone("a");
+// should return 1.
+//permAlone("aaab");
+// should return 0.
+//permAlone("aaabb");
+// should return 12.
+
+
+//function updateInventory(arr1, arr2) {
     // All inventory must be accounted for or you're fired!
 	/**
 	 * This attempt I did without the object. Not as much improvement as I hoped so I left both in
-	 */
+	 *
+
 	var bigArr = arr1.concat(arr2),
 		keyArr = [],
 		inventoryArr = [],
@@ -41,7 +137,7 @@ function updateInventory(arr1, arr2) {
 	}
 
 	console.log(sortedArray);
-
+*/
 
 /**
  * The below uses an object to ensure single keys, but seemed too verbose
@@ -83,7 +179,7 @@ function updateInventory(arr1, arr2) {
 
 	return sortedArray;
 	*/
-}
+//}
 
 // Example inventory lists
 /*
