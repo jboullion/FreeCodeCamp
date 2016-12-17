@@ -5,88 +5,93 @@
 
 Math.factor = function(num){
 	var rval = 1;
-    for (var i = 2; i <= num; i++)
-        rval = rval * i;
-    return rval;
+	for (var i = 2; i <= num; i++)
+		rval = rval * i;
+	return rval;
 }
 
-//https://github.com/FreeCodeCamp/FreeCodeCamp/wiki/Algorithm-No-Repeats-Please
-function permAlone(str) {
+String.prototype.splice = function (index, count, add) {
+	return this.slice(0, index) + (add || "") + this.slice(index + count);
+}
 
-	//I was hoping to be clever and figure out some math trick,
-	var perms = [],
-		diff = 0;
+//aab
+//[a, a, b] [a, b, a] // 2 x 1 == 2 * 3 == 6
+//[a ,a, b] [a ,b, a]
+//[b ,a, a] [b ,a, a]
 
-	//aab
-	//[a, a, b] [a, b, a] // 2 x 1 == 2 * 3 == 6
-	//[a ,a, b] [a ,b, a]
-	//[b ,a, a] [b ,a, a]
+//abcd
+//[a, b, c, d] [a, b, d, c] [a, c, b, d] [a, c, d, b] [a, d, c, b] [a, d, b, c] // 3 X 2 X 1 == 6 x 4 = 24
+//[b, a, c, d] [b, a, d, c] [b, c, a, d] [b, c, d, a] [b, d, c, a] [b, d, a, c]
+//2 more times
 
-	//abcd
-	//[a, b, c, d] [a, b, d, c] [a, c, b, d] [a, c, d, b] [a, d, c, b] [a, d, b, c] // 3 X 2 X 1 == 6 x 4 = 24
-	//[b, a, c, d] [b, a, d, c] [b, c, a, d] [b, c, d, a] [b, d, c, a] [b, d, a, c]
-	//2 more times
+//abcde
+//[a, b, c, d, e] [a, b, d, c, e] [a, c, b, d, e] [a, c, d, b, e] [a, d, c, b, e] [a, d, b, c, e] ...24  // 4 x 3 X 2 X 1 == 24 * 5 == 120
+//4 more times
 
-	//abcde
-	//[a, b, c, d, e] [a, b, d, c, e] [a, c, b, d, e] [a, c, d, b, e] [a, d, c, b, e] [a, d, b, c, e] ...24  // 4 x 3 X 2 X 1 == 24 * 5 == 120
-	//4 more times
+//abcdef
+//[a, b, c, d, e, f] [a, b, d, c, e, f] ...120  // 4 x 3 X 2 X 1 == 120 * 6 == 720
+//4 more times
 
-	//abcdef
-	//[a, b, c, d, e, f] [a, b, d, c, e, f] ...120  // 4 x 3 X 2 X 1 == 120 * 6 == 720
-	//4 more times
+//notice the TOTAL combinations from the previous string length is then being multiplied by the string length
 
-	//notice the TOTAL combinations from the previous string length is then being multiplied by the string length
+//! == factoral
+//(str.length-1)! x str.length
 
-	//! == factoral
-	//(str.length-1)! x str.length
+//For the first time using FreeCodeCamp I was truly stump.
+//I used the first hint from here: //https://github.com/FreeCodeCamp/FreeCodeCamp/wiki/Algorithm-No-Repeats-Please
 
-	var factoral = Math.factor(str.length-1);
-	var totalCombinations = factoral * str.length; //all POSSIBLE combinations. Not unique. This value is just for reference / fun
+//I tried to some tricky stuff by generating all permutations based on the idea that using factorals we could do...something.
+//It didn't work out, but I liked what I did above so I left it.
 
-	//console.log(factoral * str.length);
-	//console.log(factoral);
-	//console.log(str.length);
+//I ended up taking this function from http://stackoverflow.com/questions/27539223/permutations-via-heaps-algorithm-with-a-mystery-comma
+function heapsAlgorithm(num) {
+	var arr = (num + '').split(''),
+	permutations = [];
 
-	//for(var f = 0; f < factoral; f++){
-		var perm = [];
+	function swap(a, b) {
+		var tmp = arr[a];
+		arr[a] = arr[b];
+		arr[b] = tmp;
+	}
 
-		//perm[0] = [[str[0]]];
-		//perm[1] = [[str[0],str[1]],                                                         [str[1],str[0]]];
-		//perm[2] = [[str[2],str[0],str[1]],[str[0],str[2],str[1]],[str[0],str[1],str[2]],  [str[2],str[1],str[0]],[str[1],str[2],str[0]],[str[1],str[0],str[2]]];
-
-		perm[0] = [[str[0]]]; //== [['a']] ==> [['ba'], ['ab']]
-		console.log(perm);
-		for(var l = 1; l < str.length; l++){
-
-			for(var p = 0; p <= l; p++){
-
-				var temp = str;
-
-				temp.splice(p, 0, str[p]);
-				console.log(temp);
-				//console.log(temp);
-				//perm[l].push(temp);
-
+	function generate(n) {
+		if (n == 1) {
+			permutations.push(arr.join(''));
+		} else {
+			for (var i = 0; i != n; ++i) {
+				generate(n - 1);
+				swap(n % 2 ? 0 : i, n - 1);
 			}
-			console.log(perm);
+		}
+	}
+
+	generate(arr.length);
+	return permutations;
+}
+
+
+function permAlone(str) {
+	//get all possible permutations of this string
+	var perms = heapsAlgorithm(str);
+
+	//now we can use a filter method to clear out the garbage (aka permutations with repetition)
+	var cleanPerms = perms.filter(function(val){
+
+		if(/([a-z])\1+/.test(val) !== true){
+			return true;
 		}
 
-		//str.substr(1) + str.substr(0, 1);
-		//str = str.substr(f, 1);
+		return false;
+	});
 
-		//console.log(perm);
-		//perms.push(perm);
+	console.log(cleanPerms.length);
 
-	//}
-
-	//console.log(perms);
-
-	return str;
+	return cleanPerms.length;
 }
 
 //permAlone("aab");
 // should return a number.
-permAlone("aab");
+//permAlone("aab");
 // should return 2.
 //permAlone("aaa");
 // should return 0.
