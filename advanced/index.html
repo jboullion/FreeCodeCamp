@@ -3,6 +3,103 @@
 <body>
 <script>
 
+//return the correct suffix based on the last number in the day
+function getOrdinalSuffix(day) {
+	//?1 == st
+	//?2 == nd
+	//?3 == rd
+	//?? == th
+
+	if(/^\d?1$/.test(day)){
+		return 'st';
+	} else if(/^\d?2$/.test(day)){
+		return 'nd';
+	} else if(/^[2-3]?3$/.test(day)){
+		return 'rd';
+	} else {
+		return 'th';
+	}
+
+}
+
+
+function makeFriendlyDates(arr) {
+
+	//get our dates
+	// NOTE: we are getting the date as a UTC value, otherwise JS tries to get clever and return the wrong information
+	//we have to clean them just a bit since javascript cannot handle "0" in front of month numbers
+	//...but aparrently it is fine in front of the days?
+	var start = new Date(arr[0].replace(/-0(\d)-/, '-$1-') ),
+		end = new Date(arr[1].replace(/-0(\d)-/, '-$1-') ),
+		//we also want to know what the current date is
+		today = new Date(),
+		//setup a list of months since JS doesn't include it naturally
+		months = [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ],
+		//get all the little pieces we want. This isn't NEEDED, but I think it cleans up the code well
+		startMonth = months[start.getUTCMonth()],
+		endMonth = months[end.getUTCMonth()],
+
+		startDate = ' '+start.getUTCDate()+getOrdinalSuffix(start.getUTCDate()),
+		endDate = ' '+end.getUTCDate()+getOrdinalSuffix(end.getUTCDate()),
+		//startDate = ' '+start.getDate()+getOrdinalSuffix(start.getDate()),
+		//endDate = ' '+end.getDate()+getOrdinalSuffix(end.getDate()),
+		startYear = ', '+start.getUTCFullYear(),
+		endYear = ', '+end.getUTCFullYear();
+
+	//now we will empty the pieces we don't want
+
+	//if this is the same date, just gtfo and return that date string
+	if(start.getTime() === end.getTime() ){
+		console.log([startMonth+startDate+startYear]);
+		return [startMonth+startDate+startYear];
+	}
+
+	//same year, don't display
+	if(today.getUTCFullYear() === start.getUTCFullYear() && start.getTime() + (365 * 24 * 60 * 60 * 1000) > end.getTime()){
+		startYear = '';
+	}
+
+	//same year (as each other), do not display (not perfect due to leap years and other crap about non metric time)
+	if(start.getTime() + (365 * 24 * 60 * 60 * 1000) > end.getTime()){
+		endYear = '';
+
+		//same day, don't display
+		if(start.getUTCDate() === end.getUTCDate()){
+			endDate = '';
+		}
+	}
+
+	//same month, do not display on end
+	if(start.getUTCMonth() === end.getUTCMonth() && start.getUTCFullYear() === end.getUTCFullYear()){
+		endMonth = '';
+		endYear = '';
+	}
+
+	var startString = (startMonth+startDate+startYear).trim(),
+		endString = (endMonth+endDate+endYear).trim(),
+		returnDate = [startString, endString];
+
+	console.log(returnDate);
+	return returnDate;
+}
+
+
+//makeFriendlyDates(["2016-07-01", "2016-07-04"]);
+// should return ["July 1st","4th"].
+//makeFriendlyDates(["2016-12-01", "2017-02-03"]);
+// should return ["December 1st","February 3rd"].
+//makeFriendlyDates(["2016-12-01", "2018-02-03"]);
+// should return ["December 1st, 2016","February 3rd, 2018"].
+//makeFriendlyDates(["2017-03-01", "2017-05-05"]);
+// should return ["March 1st, 2017","May 5th"]
+//makeFriendlyDates(["2018-01-13", "2018-01-13"]);
+// should return ["January 13th, 2018"].
+//makeFriendlyDates(["2022-09-05", "2023-09-04"]);
+// should return ["September 5th, 2022","September 4th"].
+//makeFriendlyDates(["2022-09-05", "2023-09-05"]);
+// should return ["September 5th, 2022","September 5th, 2023"].
+
+/*
 Math.factor = function(num){
 	var rval = 1;
 	for (var i = 2; i <= num; i++)
@@ -88,7 +185,7 @@ function permAlone(str) {
 
 	return cleanPerms.length;
 }
-
+*/
 //permAlone("aab");
 // should return a number.
 //permAlone("aab");
