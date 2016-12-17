@@ -3,6 +3,69 @@
 <body>
 <script>
 
+
+var Person = function(firstAndLast) {
+
+	var names = firstAndLast.split(" ");
+		firstName = names[0];
+		lastName = names[1];
+
+	this.getFirstName = function() { return firstName; };
+
+	this.getLastName = function() { return lastName; };
+
+	this.getFullName = function() { return firstName+' '+lastName; };
+
+	this.setFirstName = function(first) { firstName = first; };
+
+	this.setLastName = function(last) { lastName = last; };
+
+	this.setFullName = function(firstAndLast){
+		names = firstAndLast.split(" ");
+		firstName = names[0];
+		lastName = names[1];
+	};
+
+};
+
+var bob = new Person('Bob Ross');
+
+/*
+console.log(Object.keys(bob).length);
+// should return 6.
+//bob instanceof Person;
+// should return true.
+console.log(bob.firstName);
+// should return undefined.
+console.log(bob.lastName);
+// should return undefined.
+*/
+/*
+bob.getFirstName();
+// should return "Bob".
+bob.getLastName();
+// should return "Ross".
+bob.getFullName();
+// should return "Bob Ross".
+
+bob.setFirstName("Haskell");
+bob.getFullName();
+// should return "Haskell Ross" after bob.setFirstName("Haskell").
+bob.setLastName("Curry");
+bob.getFullName();
+// should return "Haskell Curry" after bob.setLastName("Curry").
+*/
+
+bob.setFullName("Haskell Curry")
+console.log(bob.getFullName());
+// should return "Haskell Curry" after bob.setFullName("Haskell Curry").
+console.log(bob.getFirstName());
+// should return "Haskell" after bob.setFullName("Haskell Curry").
+console.log(bob.getLastName());
+// should return "Curry" after bob.setFullName("Haskell Curry").
+
+
+/*
 //return the correct suffix based on the last number in the day
 function getOrdinalSuffix(day) {
 	//?1 == st
@@ -10,9 +73,9 @@ function getOrdinalSuffix(day) {
 	//?3 == rd
 	//?? == th
 
-	if(/^\d?1$/.test(day)){
+	if(/^[2-3]?1$/.test(day)){
 		return 'st';
-	} else if(/^\d?2$/.test(day)){
+	} else if(/^[2-3]?2$/.test(day)){
 		return 'nd';
 	} else if(/^[2-3]?3$/.test(day)){
 		return 'rd';
@@ -82,7 +145,7 @@ function makeFriendlyDates(arr) {
 	console.log(returnDate);
 	return returnDate;
 }
-
+*/
 
 //makeFriendlyDates(["2016-07-01", "2016-07-04"]);
 // should return ["July 1st","4th"].
