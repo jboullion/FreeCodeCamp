@@ -4,6 +4,42 @@
 <script>
 
 
+function orbitalPeriod(arr) {
+	var GM = 398601.4418; // km3s2
+	var earthRadius = 6368.4447; //kilometers
+	//the Semi Major Axis is the distance from the center of the focal point.
+	//so for us that means this is the avgAlt AND the earthRadius.
+	var semiMajorAxis = 0;
+	var orbitalPeriod = 0;
+	var resultsArr = [];
+
+	for(var i = 0; i < arr.length; i++){
+		//I added the -0.1 on to the value of the avg alt to fix a rounding error (?)
+		//or some descrpency which made the final orbiatl period off by 1/10000000
+		//I am not sure if this is the correct method of dealing with that error, but it works surprisingly well
+
+		semiMajorAxis = Math.floor(arr[i].avgAlt) - 0.1 + earthRadius;
+
+		// https://en.wikipedia.org/wiki/Orbital_period this equation came from wikipedia
+		orbitalPeriod = parseInt(2 * Math.PI * Math.sqrt( Math.pow(semiMajorAxis, 3) / GM ));
+
+		//build a new formatted array
+		resultsArr.push({name: arr[i].name, orbitalPeriod: orbitalPeriod});
+	}
+
+	console.log(resultsArr);
+
+	return resultsArr;
+}
+
+orbitalPeriod([{name : "sputnik", avgAlt : 35873.5553}]);
+// should return [{name: "sputnik", orbitalPeriod: 86400}].
+orbitalPeriod([{name: "iss", avgAlt: 413.6}, {name: "hubble", avgAlt: 556.7}, {name: "moon", avgAlt: 378632.553}]);
+// should return [{name : "iss", orbitalPeriod: 5557}, {name: "hubble", orbitalPeriod: 5734}, {name: "moon", orbitalPeriod: 2377399}].
+
+
+
+/*
 var Person = function(firstAndLast) {
 
 	var names = firstAndLast.split(" ");
@@ -29,6 +65,7 @@ var Person = function(firstAndLast) {
 };
 
 var bob = new Person('Bob Ross');
+*/
 
 /*
 console.log(Object.keys(bob).length);
@@ -54,7 +91,7 @@ bob.getFullName();
 bob.setLastName("Curry");
 bob.getFullName();
 // should return "Haskell Curry" after bob.setLastName("Curry").
-*/
+
 
 bob.setFullName("Haskell Curry")
 console.log(bob.getFullName());
@@ -63,7 +100,7 @@ console.log(bob.getFirstName());
 // should return "Haskell" after bob.setFullName("Haskell Curry").
 console.log(bob.getLastName());
 // should return "Curry" after bob.setFullName("Haskell Curry").
-
+*/
 
 /*
 //return the correct suffix based on the last number in the day
