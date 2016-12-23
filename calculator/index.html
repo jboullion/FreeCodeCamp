@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>The Greatest Calculator</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+	<link rel="stylesheet" href="styles.css" />
+	<link href="https://fonts.googleapis.com/css?family=Droid+Sans+Mono|Fira+Mono" rel="stylesheet">
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+</head>
+<body>
+ 	<div id="calculator-wrapper">
+		<div id="calculator">
+			<div id="calc-head">
+				<p>The Perfect Calculator</p>
+			</div>
+
+			<form id="calc-form" action="">
+				<div id="calc-result-div">
+					<input id="calc-result" type="number" size="2"  >
+				</div>
+
+				<div id="calc-keys">
+
+					<div class="key-row">
+						<div data-key="(" id="calc-l-paren" class="calc-key calc-function">(</div>
+						<div data-key=")" id="calc-r-paren" class="calc-key calc-function">)</div>
+						<div data-key="%" id="calc-remainder" class="calc-key calc-function">%</div>
+						<div data-key="AC" id="calc-clear" class="calc-key calc-function">AC</div>
+					</div>
+
+					<div class="key-row">
+						<div data-key="7" id="calc-l-paren" class="calc-key calc-input">7</div>
+						<div data-key="8" id="calc-r-paren" class="calc-key calc-input">8</div>
+						<div data-key="9" id="calc-remainder" class="calc-key calc-input">9</div>
+						<div data-key="/" id="calc-divide" class="calc-key calc-function">&divide;</div>
+					</div>
+
+					<div class="key-row">
+						<div data-key="4" id="calc-l-paren" class="calc-key calc-input">4</div>
+						<div data-key="5" id="calc-r-paren" class="calc-key calc-input">5</div>
+						<div data-key="6" id="calc-remainder" class="calc-key calc-input">6</div>
+						<div data-key="*" id="calc-divide" class="calc-key calc-function">&times;</div>
+					</div>
+
+					<div class="key-row">
+						<div data-key="4" id="calc-l-paren" class="calc-key calc-input">1</div>
+						<div data-key="5" id="calc-r-paren" class="calc-key calc-input">2</div>
+						<div data-key="6" id="calc-remainder" class="calc-key calc-input">3</div>
+						<div data-key="-" id="calc-divide" class="calc-key calc-function">-</div>
+					</div>
+
+					<div class="key-row">
+						<div data-key="0" id="calc-l-paren" class="calc-key calc-input">0</div>
+						<div data-key="." id="calc-r-paren" class="calc-key calc-input">.</div>
+						<div data-key="=" id="calc-remainder" class="calc-key calc-function">=</div>
+						<div data-key="+" id="calc-divide" class="calc-key calc-function">+</div>
+					</div>
+
+				</div>
+			</form>
+
+			<div class="clearfix"></div>
+		</div>
+	</div>
+	<p id="ego"><small><a href="http://jboullion.com" target="_blank">by jboullion</a></small></p>
+
+	<script src="controller.js"></script>
+</body>
+</html>
