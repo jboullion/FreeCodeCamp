@@ -4,6 +4,63 @@
 <script>
 
 
+/**
+ * I am not sure if I am crazy, but this checks out for the free code camp tests,
+ * but I think this is an imperfect solution
+ */
+function pairwise(arr, arg) {
+
+	var unused = [];
+	var used = [];
+	var sum = 0;
+
+	//no arr? wtf? gtfo!
+	if(! arr.length) return 0;
+
+	for(var i = 0; i < arr.length; i++){
+
+		for(var j = 0; j < arr.length; j++){
+			//dont check the same key against itself
+			//also, dont use the same keys twice
+			if(i === j || used.indexOf(i) > -1 || used.indexOf(j) > -1) continue;
+
+			if(arr[i] + arr[j] === arg){
+				//add our indexes
+				sum += i + j;
+
+				//remember our indexes
+				used.push(i);
+				used.push(j);
+			}else{
+				//only save the same index once
+				if(unused.indexOf(j) > -1)  continue;
+
+				//track our unused indexes
+				unused.push(j);
+			}
+
+		}
+
+	}
+
+	console.log(sum);
+	return sum;
+}
+
+
+//pairwise([1, 4, 2, 3, 0, 5], 7);
+// should return 11.
+//pairwise([1, 3, 2, 4], 4);
+// should return 1.
+//pairwise([1, 1, 1], 2);
+// should return 1.
+//pairwise([0, 0, 0, 0, 1, 1], 1);
+// should return 10.
+pairwise([], 100);
+// should return 0.
+
+
+/*
 function orbitalPeriod(arr) {
 	var GM = 398601.4418; // km3s2
 	var earthRadius = 6368.4447; //kilometers
@@ -36,7 +93,7 @@ orbitalPeriod([{name : "sputnik", avgAlt : 35873.5553}]);
 // should return [{name: "sputnik", orbitalPeriod: 86400}].
 orbitalPeriod([{name: "iss", avgAlt: 413.6}, {name: "hubble", avgAlt: 556.7}, {name: "moon", avgAlt: 378632.553}]);
 // should return [{name : "iss", orbitalPeriod: 5557}, {name: "hubble", orbitalPeriod: 5734}, {name: "moon", orbitalPeriod: 2377399}].
-
+*/
 
 
 /*
