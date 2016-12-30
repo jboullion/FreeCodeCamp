@@ -1,62 +1,60 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>The Greatest Calculator</title>
+	<title>The Perfect Calculator</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+	<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+	<meta http-equiv="Pragma" content="no-cache" />
+	<meta http-equiv="Expires" content="0" />
 
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
-	<link rel="stylesheet" href="styles.css" />
 	<link href="https://fonts.googleapis.com/css?family=Droid+Sans+Mono|Fira+Mono" rel="stylesheet">
+	<link rel="stylesheet" href="styles.css" />
 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 </head>
 <body>
  	<div id="calculator-wrapper">
 		<div id="calculator">
-			<div id="calc-head">
-				<p>The Perfect Calculator</p>
-			</div>
-
 			<form id="calc-form" action="">
 				<div id="calc-result-div">
-					<input id="calc-result" type="number" size="2"  >
+					<!-- <input id="calc-result" type="text" size="2" > -->
+					<div id="calc-result"><span>0</span></div>
 				</div>
 
 				<div id="calc-keys">
 
 					<div class="key-row">
-						<div data-key="(" id="calc-l-paren" class="calc-key calc-function">(</div>
-						<div data-key=")" id="calc-r-paren" class="calc-key calc-function">)</div>
 						<div data-key="%" id="calc-remainder" class="calc-key calc-function">%</div>
-						<div data-key="AC" id="calc-clear" class="calc-key calc-function">AC</div>
-					</div>
-
-					<div class="key-row">
-						<div data-key="7" id="calc-l-paren" class="calc-key calc-input">7</div>
-						<div data-key="8" id="calc-r-paren" class="calc-key calc-input">8</div>
-						<div data-key="9" id="calc-remainder" class="calc-key calc-input">9</div>
+						<div data-key="AC" id="calc-clear-all" class="calc-key calc-function">AC</div>
+						<div data-key="CE" id="calc-clear-entry" class="calc-key calc-function">CE</div>
 						<div data-key="/" id="calc-divide" class="calc-key calc-function">&divide;</div>
 					</div>
 
 					<div class="key-row">
-						<div data-key="4" id="calc-l-paren" class="calc-key calc-input">4</div>
-						<div data-key="5" id="calc-r-paren" class="calc-key calc-input">5</div>
-						<div data-key="6" id="calc-remainder" class="calc-key calc-input">6</div>
-						<div data-key="*" id="calc-divide" class="calc-key calc-function">&times;</div>
+						<div data-key="7" id="calc-7" class="calc-key calc-input">7</div>
+						<div data-key="8" id="calc-8" class="calc-key calc-input">8</div>
+						<div data-key="9" id="calc-9" class="calc-key calc-input">9</div>
+						<div data-key="*" id="calc-times" class="calc-key calc-function">&times;</div>
 					</div>
 
 					<div class="key-row">
-						<div data-key="4" id="calc-l-paren" class="calc-key calc-input">1</div>
-						<div data-key="5" id="calc-r-paren" class="calc-key calc-input">2</div>
-						<div data-key="6" id="calc-remainder" class="calc-key calc-input">3</div>
-						<div data-key="-" id="calc-divide" class="calc-key calc-function">-</div>
+						<div data-key="4" id="calc-4" class="calc-key calc-input">4</div>
+						<div data-key="5" id="calc-5" class="calc-key calc-input">5</div>
+						<div data-key="6" id="calc-6" class="calc-key calc-input">6</div>
+						<div data-key="-" id="calc-minus" class="calc-key calc-function">-</div>
 					</div>
 
 					<div class="key-row">
-						<div data-key="0" id="calc-l-paren" class="calc-key calc-input">0</div>
-						<div data-key="." id="calc-r-paren" class="calc-key calc-input">.</div>
-						<div data-key="=" id="calc-remainder" class="calc-key calc-function">=</div>
-						<div data-key="+" id="calc-divide" class="calc-key calc-function">+</div>
+						<div data-key="1" id="calc-1" class="calc-key calc-input">1</div>
+						<div data-key="2" id="calc-2" class="calc-key calc-input">2</div>
+						<div data-key="3" id="calc-3" class="calc-key calc-input">3</div>
+						<div data-key="+" id="calc-plus" class="calc-key calc-function">+</div>
+					</div>
+
+					<div class="key-row">
+						<div data-key="0" id="calc-0" class="calc-key calc-input">0</div>
+						<div data-key="." id="calc-decimal" class="calc-key calc-input">.</div>
+						<div data-key="=" id="calc-equal" class="calc-key calc-function two-wide">=</div>
 					</div>
 
 				</div>

@@ -25,6 +25,19 @@ time, mark, audio, video {
 	font: inherit;
 	vertical-align: baseline;
 }
+
+input:focus,
+select:focus,
+textarea:focus,
+button:focus {
+    outline: none;
+}
+
+[contenteditable="true"]:focus {
+    outline: none;
+}
+
+
 /* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
@@ -53,7 +66,7 @@ html,
 body {
 	color: #333;
 	height: 100%;
-	background-color: #F1F1F1;
+	background-color: #FFFFFF;
 	transition: all 0.2s;
 	font-size: 18px;
 	line-height: 1.6;
@@ -79,6 +92,7 @@ body {
 	margin: 80px auto 10px;
 	max-width: 100%;
 	padding: 20px;
+	position: relative;
 
 	-webkit-box-shadow: 2px 5px 8px 0px rgba(50, 50, 50, 0.75);
 	-moz-box-shadow:    2px 5px 8px 0px rgba(50, 50, 50, 0.75);
@@ -107,14 +121,31 @@ body {
 }
 
 #calc-result {
+	background-color: #FFF;
 	border: 0;
 	font-family: 'Droid Sans Mono', monospace;
 	font-size: 1.5em;
 	line-height: 1;
-	padding: 2px 10px;
+	overflow: hidden;
+	padding: 6px 10px;
 	text-align: right;
+	height: 40px;
 	width: 240px;
+	max-width: 100%;
+	white-space: nowrap;
 
+	-webkit-box-shadow: inset 0px 0px 6px 0px rgba(0, 0, 0, 0.6);
+	-moz-box-shadow:    inset 0px 0px 6px 0px rgba(0, 0, 0, 0.6);
+	box-shadow:         inset 0px 0px 6px 0px rgba(0, 0, 0, 0.6);
+}
+
+#calc-result span {
+	float: right;
+}
+
+#calc-result:focus {
+	outline-width: 0;
+	outline: none;
 }
 
 #calc-keys {
@@ -145,6 +176,10 @@ body {
 	user-select: none;
 }
 
+.key-row .calc-key.two-wide {
+	width: 47%;
+}
+
 .key-row .calc-key:active {
 	top: 2px;
 	-webkit-box-shadow: inset 1px 1px 5px 0px rgba(50, 50, 50, 0.75);
@@ -157,11 +192,17 @@ body {
 }
 
 .key-row .calc-function {
-	background-color: #D1D1D1;
+	background-color: #d9d9d9;
+	background-image: -webkit-gradient(linear,left top,left bottom,from(#d9d9d9),to(#d0d0d0));
+	background-image: -webkit-linear-gradient(top,#d9d9d9,#d0d0d0);
+	background-image: linear-gradient(top,#d9d9d9,#d0d0d0);
 }
 
 .key-row .calc-input {
-	background-color: #F1F1F1;
+	background-color: #f8f8f8;
+	background-image: -webkit-gradient(linear,left top,left bottom,from(#f8f8f8),to(#f1f1f1));
+	background-image: -webkit-linear-gradient(top,#f8f8f8,#f1f1f1);
+	background-image: linear-gradient(top,#f8f8f8,#f1f1f1);
 }
 
 #ego {
