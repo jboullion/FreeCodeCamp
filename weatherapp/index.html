@@ -79,7 +79,7 @@ body {
 		var lat = 43,
 			long = -89,
 			currentMetric = 'celsius',
-			weatherURL = "https://crossorigin.me/http://api.openweathermap.org/data/2.5/weather";
+			weatherURL = "http://api.openweathermap.org/data/2.5/weather";
 
 		var weatherConditions = {
 				"clear sky" : "https://static.pexels.com/photos/3768/sky-sunny-clouds-cloudy.jpg",
@@ -114,6 +114,7 @@ body {
 		}
 
 		//get the user's IP
+		/*
 		$.get("https://ipinfo.io/json", function( data ) {
 
 			$.post(weatherURL+"?q="+data.city+","+data.country+"&units=metric&APPID=904f12ba1720544e715b576c50e83a3f", function( data ) {
@@ -129,11 +130,10 @@ body {
 				});
 			});
 		});
+*/
 
 
-/*
 		//use the browser's navigator.
-		//using the navigator was bringing up the wrong city. About 5 miles away
 		if (navigator.geolocation) {
 			navigator.geolocation.getCurrentPosition(function(position) {
 				lat = position.coords.latitude;
@@ -147,7 +147,7 @@ body {
 				setupWeather(data);
 			});
 		}
-*/
+
 
 	});
 /*

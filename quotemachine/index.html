@@ -1,6 +1,8 @@
 <html>
 <head>
-
+	<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+	<meta http-equiv="Pragma" content="no-cache" />
+	<meta http-equiv="Expires" content="0" />
 
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" />
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
@@ -12,6 +14,8 @@ body {
   height: 100%;
   background-color: #5b9aa0;
   transition: all 0.2s;
+  font-size: 20px;
+  line-height: 1.2;
 }
 
 
@@ -26,12 +30,16 @@ body {
   transition: all 0.2s;
 }
 
+#quote p {
+	font-size: 1em;
+}
+
 #random-btn {
-  font-size: 16px;
+  font-size: 0.9em;
 }
 
 #random-btn i {
-  font-size: 16px;
+  font-size: 0.9em;
 }
 
 #ego {
@@ -45,11 +53,13 @@ body {
   </head>
 <body>
   <div id="random-quote" class="jumbotron">
-    <h2 id="quote"><i class="fa fa-circle-o-notch fa-spin fa-3x fa-fw"></i><span class="sr-only"></span></h2>
-    <p id="author"></p>
+    <div id="quote">
+		<p>You have to roll up your sleeves and be a stonecutter before you can become a sculptor –
+		command of craft always precedes art: apprentice, journeyman, master.</p></div>
+    <p id="author">- Philip Gerard</p>
     <br />
 
-    <button id="random-btn" class="btn btn-primary ">Get Quote</button>
+    <button id="random-btn" class="btn btn-primary "><i class="fa fa-circle-o-notch fa-spin fa-3x fa-fw"></i></button>
 
     <a id="tweet" class="btn btn-primary pull-right" href="#"  target="_blank"><i class="fa fa-twitter"></i></a>
 
@@ -60,32 +70,32 @@ body {
 
   jQuery(document).ready(function($){
 
-   $.post("https://crossorigin.me/http://api.forismatic.com/api/1.0/?method=getQuote&lang=en&format=json&key=052841983", function( randQuote ) {
-        $('#quote, #author').fadeOut(300, function(){
-            $('#quote').html(randQuote.quoteText);
-            $('#author').html("- "+randQuote.quoteAuthor);
-            $('#tweet').attr('href', 'https://twitter.com/intent/tweet?hashtags=quotes&related=freecodecamp&text=' + encodeURIComponent('"' + randQuote.quoteText + '" ' + randQuote.quoteAuthor));
+   $.get("https://quotesondesign.com/wp-json/posts?filter[orderby]=rand&filter[posts_per_page]=10&callback=", function( randQuote ) {
 
-          	$(this).fadeIn(300);
-        });
+        postTweet(randQuote);
 
+	}, 'json');
 
-        });
-     });
     $('#random-btn').on('click', function(e){
-      $(this).html('<i class="fa fa-circle-o-notch fa-spin fa-3x fa-fw"></i><span class="sr-only">Loading...</span>');
-      $.post("https://crossorigin.me/http://api.forismatic.com/api/1.0/?method=getQuote&lang=en&format=json&key=052841983", function( randQuote ) {
-        $('#quote, #author').fadeOut(300, function(){
-            $('#quote').html(randQuote.quoteText);
-            $('#author').html("- "+randQuote.quoteAuthor);
-			$('#tweet').attr('href', 'https://twitter.com/intent/tweet?hashtags=quotes&related=freecodecamp&text=' + encodeURIComponent('"' + randQuote.quoteText + '" ' + randQuote.quoteAuthor));
 
-            $(this).fadeIn(300);
-        });
+      	$(this).html('<i class="fa fa-circle-o-notch fa-spin fa-3x fa-fw"></i><span class="sr-only">Loading...</span>');
+      	$.get("https://quotesondesign.com/wp-json/posts?filter[orderby]=rand&filter[posts_per_page]=10&callback=?", function( randQuote ) {
+			$('#quote, #author').fadeOut(150);
+			$('#quote, #author').fadeIn(150, postTweet(randQuote));
+    	});
+	});
 
-        $('#random-btn').html('Get Quote');
-    });
+	function postTweet(randQuote){
+		console.log(randQuote);
+		var random = Math.floor(Math.random() * (9 - 0)) + 0;
+		$('#quote').html(randQuote[random].content);
+		$('#author').html("- "+randQuote[random].title);
+		$('#tweet').attr('href', 'https://twitter.com/intent/tweet?hashtags=quotes&related=freecodecamp&text=' + encodeURIComponent('"' + randQuote[random].content + '" ' + randQuote[random].title));
 
+
+
+		$('#random-btn').html('Get Quote');
+	}
   });
   </script>
 </body>

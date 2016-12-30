@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html>
 <head>
 
@@ -406,8 +405,8 @@
 
 
 	channels.forEach(function(channel){
-		$.getJSON('https://wind-bow.hyperdev.space/twitch-api/streams/'+channel+'?callback=?', function(channelObj) {
-			console.log(channelObj);
+		$.getJSON('https://wind-bow.gomix.me/twitch-api/streams/'+channel+'?callback=?', function(channelObj) {
+
 
 			if(channelObj.error != null){
 				channelsHTML += TemplateEngine(notFoundTempate, {
