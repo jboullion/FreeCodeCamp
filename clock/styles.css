@@ -1,0 +1,291 @@
+/* http://meyerweb.com/eric/tools/css/reset/
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+* { box-sizing: border-box; }
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+
+input:focus,
+select:focus,
+textarea:focus,
+button:focus {
+    outline: none;
+}
+
+[contenteditable="true"]:focus {
+    outline: none;
+}
+
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+html,
+body {
+	color: #333;
+	height: 100%;
+	background-color: #FFFFFF;
+	transition: all 0.2s;
+	font-size: 18px;
+	line-height: 1.6;
+	font-family: 'Droid Sans Mono', monospace;
+}
+
+.clearfix {
+	clear: both;
+}
+
+::-moz-selection,
+::selection {
+	background: none;
+}
+/**
+ * Custom Begin
+ */
+
+#clock-display {
+	width  : 500px;
+	height : 500px;
+}
+
+#clock-display.working path {
+	stroke-width : 10;
+	stroke       : #333;
+	fill         : transparent;
+}
+
+#clock-display.break path {
+	stroke-width : 10;
+	stroke       : #DDD;
+	fill         : transparent;
+}
+
+#clock-display {
+	position: absolute;
+	top: -30px;
+	left: -30px;
+}
+
+#clock {
+	background-color: #f1f1f1;
+	border-radius: 50%;
+	border: 2px solid #000;
+	margin: 50px auto;
+	max-width: 100%;
+	width: 440px;
+	height: 440px;
+	padding: 64px;
+	position: relative;
+	text-align: center;
+}
+
+.input-display {
+	font-size: 40px;
+	font-weight: bold;
+	line-height: 1;
+}
+
+#break-div,
+#session-div {
+	position: absolute;
+	left: 50%;
+	width: 150px;
+	margin-left: -75px;
+}
+
+#session-div {
+
+}
+
+
+
+#clock-time {
+	position: absolute;
+	top: 50%;
+	font-size: 70px;
+	height: 100px;
+	line-height: 100px;
+	margin-top: -50px;
+	left: 0;
+	width: 100%;
+
+
+}
+
+#break-div {
+	bottom: 64px;
+}
+
+#break-time {
+	margin-top: 10px;
+}
+
+.clock-buttons {
+	background-color: #d1d1d1;
+	border-radius: 50%;
+	cursor: pointer;
+	font-size: 30px;
+
+	line-height: 30px;
+    padding: 10px;
+	position: absolute;
+	top: calc(50% - 25px);
+	z-index: 10;
+}
+
+#pause-clock {
+	left: 30px;
+}
+
+#reset-clock {
+	right: 30px;
+}
+
+
+
+
+
+
+/* http://danielstern.ca/range.css/#/ */
+input[type=range] {
+  -webkit-appearance: none;
+  width: 100%;
+  margin: 9.5px 0;
+}
+input[type=range]:focus {
+  outline: none;
+}
+input[type=range]::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 1px;
+  cursor: pointer;
+  box-shadow: 0px 0px 0px #000000, 0px 0px 0px #0d0d0d;
+  background: #000000;
+  border-radius: 0px;
+  border: 0px solid #010101;
+}
+input[type=range]::-webkit-slider-thumb {
+  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+  border: 1px solid #000000;
+  height: 20px;
+  width: 20px;
+  border-radius: 10px;
+  background: #ffffff;
+  cursor: pointer;
+  -webkit-appearance: none;
+  margin-top: -9.5px;
+}
+input[type=range]:focus::-webkit-slider-runnable-track {
+  background: #0d0d0d;
+}
+input[type=range]::-moz-range-track {
+  width: 100%;
+  height: 1px;
+  cursor: pointer;
+  box-shadow: 0px 0px 0px #000000, 0px 0px 0px #0d0d0d;
+  background: #000000;
+  border-radius: 0px;
+  border: 0px solid #010101;
+}
+input[type=range]::-moz-range-thumb {
+  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+  border: 1px solid #000000;
+  height: 20px;
+  width: 20px;
+  border-radius: 10px;
+  background: #ffffff;
+  cursor: pointer;
+}
+input[type=range]::-ms-track {
+  width: 100%;
+  height: 1px;
+  cursor: pointer;
+  background: transparent;
+  border-color: transparent;
+  color: transparent;
+}
+input[type=range]::-ms-fill-lower {
+  background: #000000;
+  border: 0px solid #010101;
+  border-radius: 0px;
+  box-shadow: 0px 0px 0px #000000, 0px 0px 0px #0d0d0d;
+}
+input[type=range]::-ms-fill-upper {
+  background: #000000;
+  border: 0px solid #010101;
+  border-radius: 0px;
+  box-shadow: 0px 0px 0px #000000, 0px 0px 0px #0d0d0d;
+}
+input[type=range]::-ms-thumb {
+  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+  border: 1px solid #000000;
+  height: 20px;
+  width: 20px;
+  border-radius: 10px;
+  background: #ffffff;
+  cursor: pointer;
+  height: 1px;
+}
+input[type=range]:focus::-ms-fill-lower {
+  background: #000000;
+}
+input[type=range]:focus::-ms-fill-upper {
+  background: #0d0d0d;
+}
+
+
+/**
+ * FOOTER
+ */
+#ego {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+#ego a {
+  color: #000;
+  font-weight: bold;
+  text-decoration: none;
+}
