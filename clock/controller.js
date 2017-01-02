@@ -42,7 +42,8 @@ function describeArc(x, y, radius, startAngle, endAngle){
 }
 
 jQuery(document).ready(function($) {
-	var SECOND = 1000,
+	var SPEED = 5, //how fast should our clock run?
+		SECOND = 1000,
 		MINUTE = 60000,
 		sessionTime = 25 * MINUTE,
 		currentSessionTime = sessionTime,
@@ -53,7 +54,9 @@ jQuery(document).ready(function($) {
 		displayWidth = 500,
 		displayRadis = displayWidth / 2,
 		displayBorder = 10,
-		$displayBar = $("#display-bar");
+		$displayBar = $("#display-bar"),
+		alerm = new Audio('http://jboullion.com/chinese-gong-daniel_simon.mp3');
+
 
 	//show initial time
 	displayTime(clockString);
@@ -109,21 +112,24 @@ jQuery(document).ready(function($) {
 	 */
 	//our timer
 	function clockTimer() {
-		currentSessionTime -= SECOND * 5;
+		currentSessionTime -= SECOND * SPEED;
 
 		if(currentSessionTime <= 0){
 			//STOP TIMER, START BREAK
 			isBreak = !isBreak;
+			alerm.play();
 
 			if(isBreak){
 				currentSessionTime = breakTime;
+				$('#clock-display').removeClass('working').addClass('break');
 			}else{
 				currentSessionTime = sessionTime;
+				$('#clock-display').removeClass('break').addClass('working');
 			}
 
-			$('#clock-display').removeClass('working').addClass('break');
+
 		}else{
-			$('#clock-display').removeClass('break').addClass('working');
+
 		}
 
 		clockString = getClockString(currentSessionTime);
@@ -145,10 +151,18 @@ jQuery(document).ready(function($) {
 
 	//show the time on the clock
 	function displayTime(time){
+		//display the clock digits
 		document.getElementById("clock-time").innerHTML = time;
 
-		var percentComplete = (sessionTime - currentSessionTime) / sessionTime * 100;
-		var arcDegrees = percentComplete * 3.6; //percent to degrees
+		//set current timer
+		var timeLeft = isBreak? breakTime - currentSessionTime:sessionTime - currentSessionTime;
+		var currentTimer =  isBreak? breakTime:sessionTime;
+
+		//calculate arc
+		var percentComplete =timeLeft / currentTimer * 100;
+		var arcDegrees = Math.floor(percentComplete * 3.6); //percent to degrees
+
+		//display the clock bar
 		$displayBar.attr("d", describeArc(displayRadis, displayRadis, displayRadis - displayBorder, 0, arcDegrees));
 	}
 });
