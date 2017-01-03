@@ -42,7 +42,7 @@ function describeArc(x, y, radius, startAngle, endAngle){
 }
 
 jQuery(document).ready(function($) {
-	var SPEED = 5, //how fast should our clock run?
+	var SPEED = 1, //how fast should our clock run?
 		SECOND = 1000,
 		MINUTE = 60000,
 		sessionTime = 25 * MINUTE,
@@ -81,6 +81,8 @@ jQuery(document).ready(function($) {
 	$('#reset-clock').click(function(e){
 		breakTime = $('#break-length').val() * MINUTE;
 		sessionTime = $('#session-length').val() * MINUTE;
+
+		isBreak = false;
 
 		currentSessionTime = sessionTime;
 

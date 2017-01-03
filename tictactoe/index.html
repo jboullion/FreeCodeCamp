@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Tic Tac Toe</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+	<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+	<meta http-equiv="Pragma" content="no-cache" />
+	<meta http-equiv="Expires" content="0" />
+
+	<link href="https://fonts.googleapis.com/css?family=Baloo+Chettan" rel="stylesheet">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+	<link rel="stylesheet" href="styles.css" />
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+</head>
+<body>
+
+ 	<div id="tictactoe-wrapper">
+		<h1>Ticky Tacky Tow</h1>
+		<div id="tictactoe-board">
+
+				<div class="board-square" id="square-1">
+					<svg class="piece piece-o">
+						<circle cx="50%" cy="50%" r="30%" fill="none" />
+					</svg>
+				</div>
+				<div class="board-square" id="square-2">
+					<svg class="piece piece-x">
+						<line x1="20%" y1="20%" x2="80%" y2="80%" />
+						<line x1="80%" y1="20%" x2="20%" y2="80%" />
+					</svg>
+				</div>
+				<div class="board-square" id="square-3">
+					<svg class="piece piece-o">
+						<circle cx="50%" cy="50%" r="30%" fill="none" />
+					</svg>
+				</div>
+
+				<div class="board-square" id="square-4">
+					<svg class="piece piece-o">
+						<circle cx="50%" cy="50%" r="30%" fill="none" />
+					</svg>
+				</div>
+				<div class="board-square" id="square-5">
+					<svg class="piece open">
+					</svg>
+				</div>
+				<div class="board-square" id="square-6">
+					<svg class="piece open">
+					</svg>
+				</div>
+
+				<div class="board-square" id="square-7">
+					<svg class="piece open">
+					</svg>
+				</div>
+				<div class="board-square" id="square-8">
+					<svg class="piece open">
+					</svg>
+				</div>
+				<div class="board-square" id="square-9">
+					<svg class="piece open">
+					</svg>
+				</div>
+
+		</div>
+	</div>
+	<p id="ego"><small><a href="http://jboullion.com" target="_blank">by jboullion</a></small></p>
+
+	<script src="controller.js"></script>
+</body>
+</html>

@@ -1,0 +1,186 @@
+/* http://meyerweb.com/eric/tools/css/reset/
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+* { box-sizing: border-box; }
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+
+input:focus,
+select:focus,
+textarea:focus,
+button:focus {
+    outline: none;
+}
+
+[contenteditable="true"]:focus {
+    outline: none;
+}
+
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+html,
+body {
+	color: #424549;
+	height: 100%;
+	background-color: #1e2124;
+	transition: all 0.2s;
+	font-size: 18px;
+	line-height: 1.6;
+	font-family: 'Shrikhand', cursive;
+}
+
+h1 {
+	color: #fefefe;
+	font-size: 50px;
+	letter-spacing: 1px;
+	text-align: center;
+	max-width: 100%;
+}
+
+.clearfix {
+	clear: both;
+}
+
+::-moz-selection,
+::selection {
+	background: none;
+}
+/**
+ * Custom Begin
+ */
+
+#tictactoe-wrapper {
+	margin: 0 auto;
+	max-width: 640px;
+}
+
+#tictactoe-board {
+
+	background-color: #333;
+	border: 5px solid #333;
+
+	margin: 10px 30px;
+
+	padding: 0;
+	position: relative;
+	text-align: center;
+
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	transition: all 0.2s;
+}
+
+.board-square {
+	background-color: #fefefe;
+	border: 5px solid #333;
+	width: calc(100%  /3);
+	position: relative;
+	padding-bottom: 33.3%;
+	max-height: 600px;
+}
+
+.piece {
+
+	transition: all 0.5s;
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	max-height: 100%;
+	max-width: 100%;
+	left: 0;
+	stroke-width: 30;
+}
+
+.piece.open {
+	cursor: pointer;
+}
+
+.piece-o {
+	stroke: #7289da;
+}
+
+.piece-x {
+	stroke: #da3942;
+}
+
+@media (max-width: 480px) {
+	h1 { font-size: 10vw; }
+
+	#tictactoe-board {
+		margin: 10px;
+	}
+
+	.piece {
+		stroke-width: 20;
+	}
+}
+
+@media (max-width: 320px) {
+
+	.piece {
+		stroke-width: 10;
+	}
+}
+
+/**
+ * FOOTER
+ */
+#ego {
+	text-align: center;
+	position: absolute;
+	bottom: 20px;
+	width: 100%;
+	left: 0;
+}
+
+#ego a {
+  color: #424549;
+  font-size: 14px;
+  font-weight: bold;
+  text-decoration: none;
+}
