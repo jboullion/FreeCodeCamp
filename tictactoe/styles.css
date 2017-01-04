@@ -62,37 +62,38 @@ table {
 	border-spacing: 0;
 }
 
-html,
-body {
-	color: #424549;
-	height: 100%;
-	background-color: #1e2124;
-	transition: all 0.2s;
-	font-size: 18px;
-	line-height: 1.6;
-	font-family: 'Shrikhand', cursive;
-}
 
-h1 {
-	color: #fefefe;
-	font-size: 50px;
-	letter-spacing: 1px;
-	text-align: center;
-	max-width: 100%;
-}
-
-.clearfix {
-	clear: both;
-}
-
-::-moz-selection,
-::selection {
-	background: none;
-}
 /**
  * Custom Begin
  */
+ html,
+ body {
+ 	color: #424549;
+ 	height: 100%;
+ 	background-color: #1e2124;
+ 	transition: all 0.2s;
+ 	font-size: 18px;
+ 	line-height: 1.6;
+ 	font-family: 'Shrikhand', cursive;
+ }
 
+ h1 {
+ 	color: #fefefe;
+ 	font-size: 50px;
+ 	letter-spacing: 1px;
+ 	text-align: center;
+ 	max-width: 100%;
+ }
+
+ .clearfix {
+ 	clear: both;
+ }
+
+ ::-moz-selection,
+ ::selection {
+ 	background: none;
+ }
+ 
 #tictactoe-wrapper {
 	margin: 0 auto;
 	max-width: 640px;
