@@ -17,6 +17,27 @@
 
  	<div id="tictactoe-wrapper">
 		<h1>Ticky Tacky Tow</h1>
+		<div id="choose-player">
+			<h2>Who would you like to play?</h2>
+			<div class="players">
+				<button id="X-btn" value="X" class="btn btn-x choice">
+					<svg class="select piece-x">
+						<line x1="20%" y1="20%" x2="80%" y2="80%"></line>
+						<line x1="80%" y1="20%" x2="20%" y2="80%"></line>
+					</svg>
+				</button>
+				<button id="O-btn" value="O" class="btn btn-o choice">
+					<svg class="select piece-o">
+						<circle cx="50%" cy="50%" r="30%" fill="none"></circle>
+					</svg>
+				</button>
+			</div>
+		</div>
+		<div id="turn-notice">
+			<h2>Player X: Turn</h2>
+			<br />
+			<h3 id="reset-game">Reset Game</h3>
+		</div>
 		<div id="tictactoe-board">
 
 				<div class="board-square" id="square-0-0">
@@ -59,11 +80,12 @@
 				</div>
 
 		</div>
+
 	</div>
 	<p id="ego"><small><a href="http://jboullion.com" target="_blank">by jboullion</a></small></p>
 
 	<script id="piece-tempate" type="text/template">
-		<svg class="piece open" data-row="<%row%>" data-column="<%col%>">
+		<svg class="piece open" data-row="<%row%>" data-column="<%col%>" >
 		</svg>
 	</script>
 

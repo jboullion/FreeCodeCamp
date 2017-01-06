@@ -77,6 +77,10 @@ table {
  	font-family: 'Shrikhand', cursive;
  }
 
+body {
+	overflow-y: scroll;
+}
+
  h1 {
  	color: #fefefe;
  	font-size: 50px;
@@ -93,7 +97,7 @@ table {
  ::selection {
  	background: none;
  }
- 
+
 #tictactoe-wrapper {
 	margin: 0 auto;
 	max-width: 640px;
@@ -103,9 +107,7 @@ table {
 
 	background-color: #333;
 	border: 5px solid #333;
-
 	margin: 10px 30px;
-
 	padding: 0;
 	position: relative;
 	text-align: center;
@@ -113,7 +115,6 @@ table {
 	display: flex;
 	flex-direction: row;
 	flex-wrap: wrap;
-	transition: all 0.2s;
 }
 
 .board-square {
@@ -122,7 +123,7 @@ table {
 	width: calc(100%  /3);
 	position: relative;
 	padding-bottom: 33.3%;
-	max-height: 600px;
+	max-height: 200px;
 }
 
 .piece {
@@ -149,6 +150,32 @@ table {
 	stroke: #da3942;
 }
 
+.spin {
+	-webkit-animation: spin 2.5s linear infinite;
+	-moz-animation: spin 2.5s linear infinite;
+	animation: spin 2.5s linear infinite;
+}
+
+.flip {
+	-webkit-animation: flip 2.5s linear infinite;
+	-moz-animation: flip 2.5s linear infinite;
+	animation: flip 2.5s linear infinite;
+}
+
+@-moz-keyframes flip {
+	100% { -moz-transform: rotateY(360deg); }
+}
+@-webkit-keyframes flip {
+	100% { -webkit-transform: rotateY(360deg); }
+}
+@keyframes flip {
+	100% { transform:rotateY(360deg); }
+}
+
+@-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
+@-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
+@keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
+
 @media (max-width: 480px) {
 	h1 { font-size: 10vw; }
 
@@ -166,6 +193,101 @@ table {
 	.piece {
 		stroke-width: 10;
 	}
+}
+
+/**
+ * Win Screen
+ */
+#turn-notice {
+
+	color: #fefefe;
+	margin: 10px 30px;
+	padding: 0;
+	position: relative;
+	text-align: center;
+
+	transition: all 0.2s;
+}
+
+#turn-notice h2,
+#turn-notice h3 { background-color: #333; padding: 5px; }
+
+#turn-notice h2 { font-size: 30px; }
+#turn-notice h3 { cursor: pointer; }
+
+@media (max-width: 480px) {
+
+	#turn-notice {
+		margin: 10px;
+	}
+
+
+}
+
+@media (max-width: 320px) {
+
+}
+
+/**
+ *	Choose Player
+ */
+#choose-player {
+	border: 5px solid #333;
+	background-color: #FEFEFE;
+
+	margin: 10px 30px;
+	opacity: 1;
+	padding: 20px;
+
+	text-align: center;
+	transition: all 0.2s;
+}
+
+.players {
+
+}
+
+.btn {
+	border: 0;
+	background-color: #333;
+	cursor: pointer;
+	height: 70px;
+	padding: 10px;
+	margin: 20px;
+	position:relative;
+	top: 0px;
+	transition: top 0.1s;
+}
+
+.btn:active {
+	top:2px;
+}
+
+.btn-x {
+	color: #da3942;
+}
+
+.btn-o {
+	color: #7289da;
+}
+
+.select {
+	height: 50px;
+	width: 50px;
+	stroke-width: 10;
+}
+
+
+@media (max-width: 480px) {
+
+	#choose-player {
+		margin: 10px;
+	}
+
+
+}
+
+@media (max-width: 320px) {
 }
 
 /**

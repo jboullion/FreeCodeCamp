@@ -4,22 +4,28 @@ $(function() {
 	// Is it players turn?
 	var pTurn = true,
 		PLAYERS = 1,
+		PLAYER = '',
 		currentTurn = 1,
 	//array to hold piece placements
 		pieceArray = [[0,0,0],[0,0,0],[0,0,0]],
 	//I don't know if this is stupid or genius
 	//Setting up values to use math to find winner
+	//I tried to set it up slightly generically so that a 4x4 or larger board could be built without much hassle
 		X_VALUE = 1,
 		O_VALUE = 4,
-		X_WIN = X_VALUE * 3,
-		O_WIN = O_VALUE * 3,
-		X_RISK = X_WIN - X_VALUE,
+		X_WIN = X_VALUE * pieceArray.length,
+		O_WIN = O_VALUE * pieceArray.length,
+		X_ADV = X_WIN - X_VALUE,
 		O_ADV = O_WIN - O_VALUE,
+		AI_ADV = 0,
+		AI_RISK = 0,
 		WINNER = false,
 		DEBUG = true;
 
 	//we have an svg template we can use as our blank piece HTML
 	var pieceTemplate = $('#piece-tempate').html();
+
+	$notice = $('#turn-notice h2');
 
 	//Create our SVG Pieces :)
 	var oPath = document.createElementNS("http://www.w3.org/2000/svg", 'circle');
@@ -51,14 +57,56 @@ $(function() {
 	 * Place a piece on click. Even after new pieces are placed
 	 */
 	$('#tictactoe-board').on('click', '.piece.open', function(e){
-		var svg = $(this)[0],
-			row = $(this).data('row'),
+
+		if(! pTurn) return;
+
+		var row = $(this).data('row'),
 			col = $(this).data('column');
 
-		displayX(row,col);
+		if(PLAYER === 'X'){
+			displayX(row,col);
+		}else{
+			displayO(row,col);
+		}
 
 		endTurn();
 	});
+
+	/**
+	 * Reset the game on button press
+	 */
+	$('#reset-game').on('click', resetGame);
+
+	/**
+	 * Select a player
+	 */
+	$('.choice').on('click', startGame);
+
+	function startGame(){
+		var delay = 300;
+		PLAYER = $(this).val();
+
+		$('#choose-player').fadeOut(delay, function(){
+			$('#turn-notice').fadeIn(delay);
+			$('#tictactoe-board').fadeIn(delay);
+
+			//if player selected 'O' then they go 2nd
+			if(PLAYER === 'O'){
+				pTurn = false;
+				setTimeout(function(){
+					aiTurn();
+					endTurn();
+				}, delay);
+				AI_ADV = X_ADV;
+				AI_RISK = O_ADV;
+			}else{
+				AI_ADV = O_ADV;
+				AI_RISK = X_ADV;
+			}
+		});
+
+
+	}
 
 	//Display the X svg image
 	function displayX(row, col){
@@ -72,39 +120,47 @@ $(function() {
 		svg.appendChild(whatPath);
 		whatPath = xPath2.cloneNode(true);
 		svg.appendChild(whatPath);
+
+		$notice.html('Player O: Turn');
 	}
 
 	//Display the O svg image
 	function displayO(row, col){
 		var $svg = $('#square-'+row+'-'+col+' svg'),
 			svg = $svg[0];
-		console.log('row: '+row+', col: '+col);
 
 		$svg.removeClass('open').addClass('piece-o');
 		pieceArray[row][col] = O_VALUE;
 
 		var whatPath = oPath.cloneNode(true);
 		svg.appendChild(whatPath);
+
+		$notice.html('Player X: Turn');
 	}
 
 	/**
 	 *  Ends Turn
 	 */
 	function endTurn(){
-
+		var turnDelay = Math.floor(Math.random() * (1000 - 300 + 1)) + 300;
 		WINNER = checkWin();
 
 		//Winner!
 		if(WINNER !== false){
-			alert(WINNER+' Wins!');
-			resetGame();
+			$notice.html(WINNER+' Wins!');
+
+			if(WINNER === 'O'){
+				$('.board-square .piece-o').addClass('flip');
+			}else{
+				$('.board-square .piece-x').addClass('spin');
+			}
+
 			return;
 		}
 
 		//Did we run out of turns?
 		if(currentTurn === 9){
-			alert('DRAW!!');
-			resetGame();
+			$notice.html('DRAW!!');
 			return;
 		}
 
@@ -114,10 +170,23 @@ $(function() {
 
 		//take next turn
 		if(PLAYERS === 1 && !pTurn){
-			aiTurn();
-			endTurn();
+			//humans are so slow. Let's make the computer pretend it is thinking
+
+			setTimeout(function(){
+				aiTurn();
+				endTurn();
+			}, turnDelay);
+
 		}
 
+	}
+
+	function displayAI(row,col){
+		if(PLAYER === 'X'){
+			displayO(row,col);
+		}else{
+			displayX(row,col);
+		}
 	}
 
 	function aiTurn(){
@@ -139,7 +208,7 @@ $(function() {
 
 		//always take middle piece if possible.
 		if(pieceArray[1][1] === 0){
-			displayO(1,1);
+			displayAI(1,1);
 			return;
 		}
 
@@ -153,10 +222,7 @@ $(function() {
 				for(var col = 0; col < pieceArray[row].length; col++){
 					if(pieceArray[col][row] === 0){
 						//Open!
-						if(DEBUG === true){
-							console.log('column placement');
-						}
-						displayO(col,row);
+						displayAI(col,row);
 						return;
 					}
 				}
@@ -168,7 +234,7 @@ $(function() {
 				for(var col = 0; col < pieceArray[row].length; col++){
 					if(pieceArray[row][col] === 0){
 						//Open!
-						displayO(row,col);
+						displayAI(row,col);
 						return;
 					}
 				}
@@ -179,7 +245,7 @@ $(function() {
 				for(var col = 0; col < pieceArray[row].length; col++){
 					if(pieceArray[col][col] === 0){
 						//Open!
-						displayO(col,col);
+						displayAI(col,col);
 						return;
 					}
 				}
@@ -190,7 +256,7 @@ $(function() {
 				for(var col = 0; col < pieceArray[row].length; col++){
 					if(pieceArray[pieceArray[row].length-col-1][col] === 0){
 						//Open!
-						displayO(pieceArray[row].length-col-1,col);
+						displayAI(pieceArray[row].length-col-1,col);
 						return;
 					}
 				}
@@ -198,11 +264,31 @@ $(function() {
 
 		}
 
-		//Just find the first open piece
+		//go through the corners and place a piece.
+		// I think the corners are the best place if no other spot has an advantage or risk
+		if(pieceArray[0][0] === 0){
+			displayAI(0,0);
+			return;
+		}
+		if(pieceArray[0][2] === 0){
+			displayAI(0,2);
+			return;
+		}
+		if(pieceArray[2][0] === 0){
+			displayAI(2,0);
+			return;
+		}
+		if(pieceArray[2][2] === 0){
+			displayAI(2,2);
+			return;
+		}
+
+		//Just find the first open place so we do something.
+		//I do not think the AI should ever make it here, but just in case.
 		for(var row = 0; row < pieceArray.length; row++){
 			for(var col = 0; col < pieceArray[row].length; col++){
 				if(pieceArray[row][col] === 0){
-					displayO(row,col);
+					displayAI(row,col);
 					return;
 				}
 			}
@@ -211,7 +297,7 @@ $(function() {
 	}
 
 	function advOrRisk(value){
-		if (value === O_ADV || value === X_RISK ) {
+		if (value === AI_ADV || value === AI_RISK ) {
 			return true
 		}
 
@@ -265,9 +351,21 @@ $(function() {
 		currentTurn = 1;
 		pieceArray = [[0,0,0],[0,0,0],[0,0,0]];
 		WINNER = false;
+		PLAYER = '';
+		AI_ADV = 0;
+		AI_RISK = 0;
 
-		var piece;
+		var piece = null,
+			delay = 300;
 
+		$('#tictactoe-board,#turn-notice ').fadeOut(delay, function(){
+			$('#choose-player').fadeIn(delay,function(){
+				clearBoard();
+			});
+		});
+	}
+
+	function clearBoard(){
 		//reset our pieces
 		for(var row = 0; row < pieceArray.length; row++){
 			for(var col = 0; col < pieceArray[row].length; col++){
@@ -283,6 +381,7 @@ $(function() {
 			}
 		}
 
+		$notice.html('Player X: Turn');
 	}
 
 	//add 2 numbers.
