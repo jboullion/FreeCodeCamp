@@ -18,27 +18,53 @@
 	<div id="game-wrapper">
 		<div id="game-container">
 			<svg id="paddles" viewBox="0 0 400 400" >
-				<path class="paddle red"
-					d="M 200,1 L 200,200 L 399,200
-					   A 200,200 0 0,0 200,1" />
-				<path class="paddle green"
-					d="M 1,200 L 200,200 L 200,1
-					   A 200,200 0 0,0 1,200"/>
-				<path class="paddle yellow"
-					d="M 200,399 L 200,200 L 1,200
-					   A 200,200 0 0,0 200,399"/>
-				<path class="paddle blue"
-					d="M 399,200 L 200,200 L 200,399
-					   A 200,200 0 0,0 399,200"/>
-				<circle class="circle" cx="50%" cy="50%" r="48%"
-						fill="none" stroke="#333" stroke-width="4%"></circle>
+				<!-- Paddles -->
+				<path class="paddle red clickable" d="M 200,1 L 200,200 L 399,200 A 200,200 0 0,0 200,1" />
+				<path class="paddle green clickable" d="M 1,200 L 200,200 L 200,1  A 200,200 0 0,0 1,200"/>
+				<path class="paddle yellow clickable"	d="M 200,399 L 200,200 L 1,200 A 200,200 0 0,0 200,399"/>
+				<path class="paddle blue clickable" d="M 399,200 L 200,200 L 200,399 A 200,200 0 0,0 399,200"/>
+
+				<!-- Borders -->
+				<circle class="circle" cx="50%" cy="50%" r="48%" fill="none" stroke="#333" stroke-width="4%"></circle>
 				<line x1="0%" y1="50%" x2="100%" y2="50%" stroke="#333" stroke-width="4%"></line>
 				<line x1="50%" y1="0%" x2="50%" y2="100%" stroke="#333" stroke-width="4%"></line>
 
-				<circle class="circle" cx="50%" cy="50%" r="100px"
-						fill="#333" ></circle>
-				<text class="simon-font" x="135" y="170" fill="white" font-family="Squada One" font-size="55">SIMON</text>
+				<!-- Center Circle -->
+				<circle class="circle" cx="50%" cy="50%" r="100px"	fill="#333" ></circle>
+
+				<!-- SIMON -->
+				<text class="simon-font" x="135" y="170" font-size="55">SIMON</text>
+
+				<!-- OFF -->
+				<text class="simon-font clickable" x="150" y="265" font-size="15">OFF</text>
+
+				<!-- ON -->
+				<text class="simon-font clickable" x="240" y="265" font-size="15">ON</text>
+
+				<!-- Track -->
+				<line x1="185" y1="260" x2="225" y2="260" stroke="#1e1e1e" stroke-width="4%" stroke-linecap="round"></line>
+
+				<!-- Thumb -->
+				<circle class="off clickable" cx="185" cy="260" r="1.5%" fill="#fefefe" ></circle>
+
+				<!-- Count -->
+				<line class="count-round" x1="130" y1="200" x2="170" y2="200" stroke="#1b1b1b" stroke-width="7%"></line>
+				<line class="count-round" x1="135" y1="200" x2="165" y2="200" stroke="#000" stroke-width="5%"></line>
+
+				<text class="simon-font" x="142" y="206" font-size="20">01</text>
+				<text class="simon-font" x="137" y="225" font-size="12">COUNT</text>
+
+				<!-- Start -->
+				<circle class="red clickable" cx="200" cy="200" r="3%" stroke="#1b1b1b" stroke-width="1%" ></circle>
+				<text class="simon-font" x="187" y="225" font-size="12">START</text>
+
+				<!-- Strict -->
+				<circle class="strict on" cx="275" cy="200" r="0.8%" stroke="#1b1b1b" stroke-width="0.2%" ></circle>
+				<circle class="yellow clickable" cx="250" cy="200" r="3%" stroke="#1b1b1b" stroke-width="1%" ></circle>
+				<text class="simon-font" x="236" y="225" font-size="12">STRICT</text>
+
 			</svg>
+
 		</div>
 	</div>
 

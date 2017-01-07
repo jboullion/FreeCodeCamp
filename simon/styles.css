@@ -146,7 +146,7 @@ body {
  * SVG
  */
 .paddle {
-	cursor: pointer;
+
 }
 
 .green {
@@ -166,7 +166,12 @@ body {
 	fill: #20A7Dd;
 }
 
-.red {
+.strict.off {
+	fill: #1b1b1b;
+}
+
+.red,
+.strict.on {
 	fill: #c40233;
 }
 
@@ -219,7 +224,110 @@ body {
 
 .simon-font {
 	cursor: default;
-	fill: #FFF;
+	fill: #fefefe;
+	font-family: 'Squada One';
+}
+
+.clickable {
+	cursor: pointer;
+}
+
+
+/* RANGE / ON / OFF */
+#power-container {
+	position: absolute;
+    bottom: 36%;
+    width: 24%;
+    left: 39%;
+}
+
+#power {
+	background: #333;
+	width: 100%;
+}
+
+#power-container label {
+	font-size: 2vw
+}
+
+#power-container .off {
+	float:left;
+}
+
+#power-container .on {
+	float:right;
+}
+
+
+input[type=range] {	-webkit-appearance: none;	width: 100%;	margin: -5px 0;}
+input[type=range]:focus {	outline: none;}
+
+input[type=range]::-webkit-slider-runnable-track {	width: 100%;	cursor: pointer;	background: #1e1e1e;	border-radius: 3px;	border: 3px solid #1e1e1e;}
+input[type=range]::-webkit-slider-thumb {	border: 0px solid #000000;	border-radius: 3px;	background: #ffffff;	cursor: pointer;	-webkit-appearance: none;	margin-top: 2px;}
+
+input[type=range]::-moz-range-track {	width: 100%;	cursor: pointer;	background: #1e1e1e;	border-radius: 3px;	border: 3px solid #1e1e1e;}
+input[type=range]::-moz-range-thumb {	border: 0px solid #000000;	border-radius: 3px;	background: #ffffff;	cursor: pointer;}
+
+input[type=range]::-ms-track {	width: 100%;	cursor: pointer;	background: transparent;	border-color: transparent;	color: transparent;}
+input[type=range]::-ms-fill-lower {	background: #111111;	border: 3px solid #1e1e1e;	border-radius: 6px;}
+input[type=range]::-ms-fill-upper {	background: #1e1e1e;	border: 3px solid #1e1e1e;	border-radius: 6px;}
+input[type=range]::-ms-thumb {	border: 0px solid #000000;	border-radius: 3px;	background: #ffffff;	cursor: pointer;}
+
+
+@media (min-width: 481px) {
+
+	input[type=range]::-webkit-slider-runnable-track {
+		height: 30px;
+	}
+	input[type=range]::-webkit-slider-thumb {
+		height: 20px;
+		width: 20px;
+	}
+
+	input[type=range]::-moz-range-track {
+		height: 30px;
+	}
+	input[type=range]::-moz-range-thumb {
+		height: 20px;
+		width: 20px;
+	}
+	input[type=range]::-ms-track {
+		height: 30px;
+	}
+
+
+	input[type=range]::-ms-thumb {
+		width: 20px;
+		height: 10px;
+	}
+}
+
+
+@media (max-width: 480px) {
+
+	input[type=range]::-webkit-slider-runnable-track {
+		height: 16px;
+	}
+	input[type=range]::-webkit-slider-thumb {
+		height: 7px;
+		width: 7px;
+	}
+
+	input[type=range]::-moz-range-track {
+		height: 16px;
+	}
+	input[type=range]::-moz-range-thumb {
+		height: 7px;
+		width: 7px;
+	}
+	input[type=range]::-ms-track {
+		height: 16px;
+	}
+
+	input[type=range]::-ms-thumb {
+		width: 14px;
+		height: 7px;
+	}
 }
 
 
