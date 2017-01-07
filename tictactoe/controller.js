@@ -232,6 +232,13 @@ $(function() {
 			return;
 		}
 
+		//a specific weakness. NO MORE!
+		if(pieceArray[1][2] + pieceArray[2][1] === X_VALUE + X_VALUE && pieceArray[2][2] !== O_VALUE){
+			//alert('It\'s a trap!');
+			displayAI(2,2);
+			return;
+		}
+
 		//are any of the rows in a win condition?
 		for(var row = 0; row < pieceArray.length; row++){
 			countPieces(row);
