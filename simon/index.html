@@ -7,36 +7,43 @@
 	<meta http-equiv="Pragma" content="no-cache" />
 	<meta http-equiv="Expires" content="0" />
 
-	<link href="https://fonts.googleapis.com/css?family=Baloo+Chettan" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Orbitron:900|Squada+One|Teko:600" rel="stylesheet">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
 	<link rel="stylesheet" href="styles.css" />
 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 </head>
 <body>
-	<svg height="200" width="500">
-		<!-- C x1 y1, x2 y2, x y (or c dx1 dy1, dx2 dy2, dx dy) -->
-		<path d="M00 00 C 100 50, 300 50, 400 0" stroke="white" stroke-width="20" fill="transparent"/>
-	</svg>
 
-	<svg width="400" height="400" viewBox="0 0 2 2">
-	   <path fill="#c40233"
-		   d="M 1,0 L 1,1 L 2,1
-			  A 1,1 0 0,0 1,0"
-	   />
-	   <path fill="#009f6b"
-		   d="M 0,1 L 1,1 L 1,0
-			  A 1,1 0 0,0 0,1"
-	   />
-	   <path fill="#ffd300"
-		   d="M 1,2 L 1,1 L 0,1
-			  A 1,1 0 0,0 1,2"
-	   />
-	   <path fill="#0087bd"
-		   d="M 2,1 L 1,1 L 1,2
-			  A 1,1 0 0,0 2,1"
-	   />
-	</svg>
+	<div id="game-wrapper">
+		<div id="game-container">
+			<svg id="paddles" viewBox="0 0 400 400" >
+				<path class="red"
+					d="M 200,1 L 200,200 L 399,200
+					   A 200,200 0 0,0 200,1" />
+				<path class="green"
+					d="M 1,200 L 200,200 L 200,1
+					   A 200,200 0 0,0 1,200"/>
+				<path class="yellow"
+					d="M 200,399 L 200,200 L 1,200
+					   A 200,200 0 0,0 200,399"/>
+				<path class="blue"
+					d="M 399,200 L 200,200 L 200,399
+					   A 200,200 0 0,0 399,200"/>
+				<circle class="circle" cx="50%" cy="50%" r="48%"
+						fill="none" stroke="#333" stroke-width="4%"></circle>
+				<line x1="0%" y1="50%" x2="100%" y2="50%" stroke="#333" stroke-width="4%"></line>
+				<line x1="50%" y1="0%" x2="50%" y2="100%" stroke="#333" stroke-width="4%"></line>
+			</svg>
+			<div id="center-console">
+				<div id="inside-controls" >
+					<svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 200 70">
+						<text x="0" y="60" fill="white" font-family="Squada One" font-size="85">SIMON</text>
+					</svg>
+				</div>
+			</div>
+		</div>
+	</div>
 
 	<p id="ego"><small><a href="http://jboullion.com" target="_blank">by jboullion</a></small></p>
 

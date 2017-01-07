@@ -230,21 +230,28 @@ $(function() {
 		if(pieceArray[1][1] === 0){
 			displayAI(1,1);
 			return;
-		}
-
-		//a specific weakness. NO MORE!
-		if(pieceArray[1][2] + pieceArray[2][1] === X_VALUE + X_VALUE && pieceArray[2][2] !== O_VALUE){
-			//alert('It\'s a trap!');
+		}else if(pieceArray[1][2] + pieceArray[2][1] === X_VALUE + X_VALUE && pieceArray[2][2] === 0){
+			//right center and bottom center trap.
 			displayAI(2,2);
 			return;
 		}
+		else if(pieceArray[0][0] + pieceArray[2][2] === X_VALUE + X_VALUE && pieceArray[1][0] === 0){
+			//opposite corner attacks
+			displayAI(1,0);
+			return;
+		}
+		else if(pieceArray[2][0] + pieceArray[0][2] === X_VALUE + X_VALUE && pieceArray[1][2] === 0){
+			displayAI(1,2);
+			return;
+		}
 
-		//are any of the rows in a win condition?
+
+		//Check advantage first
 		for(var row = 0; row < pieceArray.length; row++){
 			countPieces(row);
 
 			//Check our columns for adv and risk
-			if (advOrRisk(colSum)) {
+			if (advantage(colSum)) {
 				//this column is in trouble, find an open space!
 				for(var col = 0; col < pieceArray[row].length; col++){
 					if(pieceArray[col][row] === 0){
@@ -256,7 +263,7 @@ $(function() {
 			}
 
 			//Check our rows for adv and risk
-			if (advOrRisk(rowSum)) {
+			if (advantage(rowSum)) {
 				//this row is in trouble, find an open space!
 				for(var col = 0; col < pieceArray[row].length; col++){
 					if(pieceArray[row][col] === 0){
@@ -268,7 +275,7 @@ $(function() {
 			}
 
 			//ltr or top to bottom diagonal, [0,0],[1,1][2,2]
-			if (advOrRisk(ltrDiagSum)) {
+			if (advantage(ltrDiagSum)) {
 				for(var col = 0; col < pieceArray[row].length; col++){
 					if(pieceArray[col][col] === 0){
 						//Open!
@@ -279,7 +286,59 @@ $(function() {
 			}
 
 			//rtl or bottom to top diagonal, [2,0],[1,1][0,2]
-			if (advOrRisk(rtlDiagSum)) {
+			if (advantage(rtlDiagSum)) {
+				for(var col = 0; col < pieceArray[row].length; col++){
+					if(pieceArray[pieceArray[row].length-col-1][col] === 0){
+						//Open!
+						displayAI(pieceArray[row].length-col-1,col);
+						return;
+					}
+				}
+			}
+
+		}
+
+		//Check for risks next
+		for(var row = 0; row < pieceArray.length; row++){
+			countPieces(row);
+
+			//Check our columns for adv and risk
+			if (risk(colSum)) {
+				//this column is in trouble, find an open space!
+				for(var col = 0; col < pieceArray[row].length; col++){
+					if(pieceArray[col][row] === 0){
+						//Open!
+						displayAI(col,row);
+						return;
+					}
+				}
+			}
+
+			//Check our rows for adv and risk
+			if (risk(rowSum)) {
+				//this row is in trouble, find an open space!
+				for(var col = 0; col < pieceArray[row].length; col++){
+					if(pieceArray[row][col] === 0){
+						//Open!
+						displayAI(row,col);
+						return;
+					}
+				}
+			}
+
+			//ltr or top to bottom diagonal, [0,0],[1,1][2,2]
+			if (risk(ltrDiagSum)) {
+				for(var col = 0; col < pieceArray[row].length; col++){
+					if(pieceArray[col][col] === 0){
+						//Open!
+						displayAI(col,col);
+						return;
+					}
+				}
+			}
+
+			//rtl or bottom to top diagonal, [2,0],[1,1][0,2]
+			if (risk(rtlDiagSum)) {
 				for(var col = 0; col < pieceArray[row].length; col++){
 					if(pieceArray[pieceArray[row].length-col-1][col] === 0){
 						//Open!
@@ -321,6 +380,22 @@ $(function() {
 			}
 		}
 
+	}
+
+	function advantage(value){
+		if (value === AI_ADV) {
+			return true
+		}
+
+		return false;
+	}
+
+	function risk(value){
+		if (value === AI_RISK ) {
+			return true
+		}
+
+		return false;
 	}
 
 	function advOrRisk(value){
