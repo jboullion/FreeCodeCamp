@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Simon</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+	<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+	<meta http-equiv="Pragma" content="no-cache" />
+	<meta http-equiv="Expires" content="0" />
+
+	<link href="https://fonts.googleapis.com/css?family=Baloo+Chettan" rel="stylesheet">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+	<link rel="stylesheet" href="styles.css" />
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+</head>
+<body>
+	<svg height="200" width="500">
+		<!-- C x1 y1, x2 y2, x y (or c dx1 dy1, dx2 dy2, dx dy) -->
+		<path d="M00 00 C 100 50, 300 50, 400 0" stroke="white" stroke-width="20" fill="transparent"/>
+	</svg>
+
+	<svg width="400" height="400" viewBox="0 0 2 2">
+	   <!-- remember that the origin is in the upper left corner; we're
+	   basically working in the "fourth quadrant" but ignoring the negative
+	   signs on the y-values -->
+	   <path fill="#c40233"
+		   d="M 1,0 L 1,1 L 2,1
+			  A 1,1 0 0,0 1,0"
+	   />
+	   <!-- the work is being done by the elliptical arc command A/a which can
+	   do a lot of stuff, but here should just be "A r,r 0 0,0 x,y"
+	   where r is the radius and (x,y) is the endpoint of the arc -->
+	   <path fill="#009f6b"
+		   d="M 0,1 L 1,1 L 1,0
+			  A 1,1 0 0,0 0,1"
+	   />
+	   <!-- I presume you already know how to draw lines here -->
+	   <path fill="#ffd300"
+		   d="M 1,2 L 1,1 L 0,1
+			  A 1,1 0 0,0 1,2"
+	   />
+	   <!-- the order here is yellow,green,red,blue, for convenience-->
+	   <path fill="#0087bd"
+		   d="M 2,1 L 1,1 L 1,2
+			  A 1,1 0 0,0 2,1"
+	   />
+   </svg>
+
+	<p id="ego"><small><a href="http://jboullion.com" target="_blank">by jboullion</a></small></p>
+
+	<script src="controller.js"></script>
+</body>
+</html>

@@ -86,6 +86,26 @@ $(function() {
 		var delay = 300;
 		PLAYER = $(this).val();
 
+		$('#choose-player').removeClass('in').addClass('out');
+		$('#game-container').removeClass('out').addClass('in');
+
+		//if player selected 'O' then they go 2nd
+		if(PLAYER === 'O'){
+			pTurn = false;
+
+			setTimeout(function(){
+				aiTurn();
+				endTurn();
+			}, delay);
+
+			AI_ADV = X_ADV;
+			AI_RISK = O_ADV;
+		}else{
+			AI_ADV = O_ADV;
+			AI_RISK = X_ADV;
+		}
+
+/*
 		$('#choose-player').fadeOut(delay, function(){
 			$('#turn-notice').fadeIn(delay);
 			$('#tictactoe-board').fadeIn(delay);
@@ -104,7 +124,7 @@ $(function() {
 				AI_RISK = X_ADV;
 			}
 		});
-
+*/
 
 	}
 
@@ -358,11 +378,17 @@ $(function() {
 		var piece = null,
 			delay = 300;
 
+		$('#choose-player').removeClass('out').addClass('in');
+		$('#game-container').removeClass('in').addClass('out');
+
+		clearBoard();
+/*
 		$('#tictactoe-board,#turn-notice ').fadeOut(delay, function(){
 			$('#choose-player').fadeIn(delay,function(){
 				clearBoard();
 			});
 		});
+*/
 	}
 
 	function clearBoard(){

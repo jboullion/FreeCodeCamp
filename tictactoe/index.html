@@ -15,9 +15,10 @@
 </head>
 <body>
 
+	<h1>Ticky Tacky Tow</h1>
  	<div id="tictactoe-wrapper">
-		<h1>Ticky Tacky Tow</h1>
-		<div id="choose-player">
+
+		<div id="choose-player" class="slider in left">
 			<h2>Who would you like to play?</h2>
 			<div class="players">
 				<button id="X-btn" value="X" class="btn btn-x choice">
@@ -33,53 +34,54 @@
 				</button>
 			</div>
 		</div>
-		<div id="turn-notice">
-			<h2>Player X: Turn</h2>
-			<br />
-			<h3 id="reset-game">Reset Game</h3>
-		</div>
-		<div id="tictactoe-board">
+		<div id="game-container" class="slider out right">
+			<div id="turn-notice">
+				<h2>Player X: Turn</h2>
+				<br />
+				<h3 id="reset-game">Reset Game</h3>
+			</div>
+			<div id="tictactoe-board">
 
-				<div class="board-square" id="square-0-0">
-					<svg class="piece open" data-row="0" data-column="0">
-					</svg>
-				</div>
-				<div class="board-square" id="square-0-1">
-					<svg class="piece open" data-row="0" data-column="1">
-					</svg>
-				</div>
-				<div class="board-square" id="square-0-2">
-					<svg class="piece open" data-row="0" data-column="2">
-					</svg>
-				</div>
+					<div class="board-square" id="square-0-0">
+						<svg class="piece open" data-row="0" data-column="0">
+						</svg>
+					</div>
+					<div class="board-square" id="square-0-1">
+						<svg class="piece open" data-row="0" data-column="1">
+						</svg>
+					</div>
+					<div class="board-square" id="square-0-2">
+						<svg class="piece open" data-row="0" data-column="2">
+						</svg>
+					</div>
 
-				<div class="board-square" id="square-1-0">
-					<svg class="piece open" data-row="1" data-column="0">
-					</svg>
-				</div>
-				<div class="board-square" id="square-1-1">
-					<svg class="piece open" data-row="1" data-column="1">
-					</svg>
-				</div>
-				<div class="board-square" id="square-1-2">
-					<svg class="piece open" data-row="1" data-column="2">
-					</svg>
-				</div>
+					<div class="board-square" id="square-1-0">
+						<svg class="piece open" data-row="1" data-column="0">
+						</svg>
+					</div>
+					<div class="board-square" id="square-1-1">
+						<svg class="piece open" data-row="1" data-column="1">
+						</svg>
+					</div>
+					<div class="board-square" id="square-1-2">
+						<svg class="piece open" data-row="1" data-column="2">
+						</svg>
+					</div>
 
-				<div class="board-square" id="square-2-0">
-					<svg class="piece open" data-row="2" data-column="0">
-					</svg>
-				</div>
-				<div class="board-square" id="square-2-1">
-					<svg class="piece open" data-row="2" data-column="1">
-					</svg>
-				</div>
-				<div class="board-square" id="square-2-2">
-					<svg class="piece open" data-row="2" data-column="2">
-					</svg>
-				</div>
+					<div class="board-square" id="square-2-0">
+						<svg class="piece open" data-row="2" data-column="0">
+						</svg>
+					</div>
+					<div class="board-square" id="square-2-1">
+						<svg class="piece open" data-row="2" data-column="1">
+						</svg>
+					</div>
+					<div class="board-square" id="square-2-2">
+						<svg class="piece open" data-row="2" data-column="2">
+						</svg>
+					</div>
 
-		</div>
+			</div>
 
 	</div>
 	<p id="ego"><small><a href="http://jboullion.com" target="_blank">by jboullion</a></small></p>
