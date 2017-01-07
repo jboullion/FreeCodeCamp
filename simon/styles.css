@@ -3,7 +3,10 @@
    License: none (public domain)
 */
 
-* { box-sizing: border-box; }
+* { box-sizing: border-box; -webkit-user-select: none;  /* Chrome all / Safari all */
+  -moz-user-select: none;     /* Firefox all */
+  -ms-user-select: none;      /* IE 10+ */
+  user-select: none; }
 
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
@@ -142,8 +145,16 @@ body {
 /**
  * SVG
  */
+.paddle {
+	cursor: pointer;
+}
+
 .green {
 	fill: #009f6b;
+}
+
+.green:active {
+	fill: #30Bf9b;
 }
 
 
@@ -151,17 +162,29 @@ body {
 	fill: #0087bd;
 }
 
-.red {
+.blue:active {
+	fill: #20A7Dd;
+}
 
+.red {
 	fill: #c40233;
 }
 
-.yellow {
+.red:active {
+	fill: #e40453;
+}
 
+.yellow {
 	fill: #ffd300;
 }
 
+.yellow:active {
+	fill: #fff310;
+}
 
+.circle {
+
+}
 
 #paddles {
 
@@ -171,10 +194,13 @@ body {
 
 /* CONTROLS */
 #center-console {
+	/*
 	background-color: #333;
 	border-radius: 50%;
+	*/
 	padding-top: 50%;
 	position: absolute;
+	/*pointer-events: none;*/
 	top: 0;
 	left: 0;
 	width: 320px;
@@ -192,9 +218,8 @@ body {
 }
 
 .simon-font {
-	color: #FFF;
+	cursor: default;
 	fill: #FFF;
-	font-family: 'Squada One', cursive;
 }
 
 
