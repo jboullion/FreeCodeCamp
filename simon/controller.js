@@ -4,7 +4,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	//Gamestate
 	var game = {
 		playing: false, //aka started
-		speed: 500, //the speed between showings. Increases over time.
+		speed: 750, //the speed between showings. Increases over time.
+		decrementSpeed: 150,
 		delay: 200, //delay between interactions
 		hold: false, //delay between interactions
 		strict: false, //strict mode
@@ -12,7 +13,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		count: 1, //current count / steps
 		pattern: [], //this array will hold the game steps
 		nextPaddle: null, //what is the nextPaddle the user has to hit
-		userStep: 0 //track the current user steps.
+		userStep: 0, //track the current user steps.
+		maxCount: 20 //maximum number of turns
 	};
 
 	//paddle values
@@ -121,13 +123,14 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
 		//build a new game pattern
 		game.pattern = [];
-		for(var s = 0; s < 21; s++){
-			game.pattern.push(getRandomInt(0,3));
+		for(var s = 0; s < game.maxCount; s++){
+			game.pattern.push(getRandomInt(GREEN,BLUE));
 		}
 
 		show();
 	}
 
+	//run through the game pattern up to the current count
 	function show(){
 
 		displayCount();
@@ -140,6 +143,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 				window.clearInterval(counting);
 				game.showing = false;
 			}
+
 		},game.speed);
 
 		//the next paddle the user must hit
@@ -148,10 +152,12 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
 	}
 
+	//update the count display value
 	function displayCount(){
 		$count.innerHTML = game.count<10?'0'+game.count:game.count;
 	}
 
+	//when the AI is showing the paddle, use this function
 	function showPaddle(paddle){
 		var $button = null;
 
@@ -200,12 +206,45 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		}
 	}
 
+	//what do we do when a user hits the wrong button
 	function wrongButton(){
-		$count.innerHTML = '!!';
+
+		if(game.strict){
+			lose();
+		}else{
+			playAgain();
+		}
 	}
 
+	//player loses and goes back to start
+	function lose(){
+		//let the player know they errored
+		$count.innerHTML = '!!';
+		game.showing = true;
+		setTimeout(function(){
+			start();
+		}, game.delay * 10);
+	}
+
+	//when not in strict mode, we want to see the pattern again
+	function playAgain(){
+		//let the player know they errored
+		$count.innerHTML = '!!';
+
+		game.showing = true;
+
+		setTimeout(function(){
+			show();
+		}, game.delay * 10);
+	}
+
+	//move to the next step in the game pattern and show the pattern
 	function nextStep(){
 		game.count++;
+		//every third round increase the speed
+		if(game.count === 5 || game.count === 9 || game.count === 13){
+			game.speed -= game.decrementSpeed;
+		}
 		game.showing = true;
 
 		show();
