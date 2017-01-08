@@ -55,7 +55,7 @@ jQuery(document).ready(function($) {
 		displayRadis = displayWidth / 2,
 		displayBorder = 10,
 		$displayBar = $("#display-bar"),
-		alerm = new Audio('http://jboullion.com/chinese-gong-daniel_simon.mp3');
+		alarm = new Audio('http://jboullion.com/chinese-gong-daniel_simon.mp3');
 
 
 	//show initial time
@@ -119,7 +119,7 @@ jQuery(document).ready(function($) {
 		if(currentSessionTime <= 0){
 			//STOP TIMER, START BREAK
 			isBreak = !isBreak;
-			alerm.play();
+			alarm.play();
 
 			if(isBreak){
 				currentSessionTime = breakTime;
