@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	//Gamestate
 	var game = {
 		playing: false, //aka started
-		speed: 750, //the speed between showings. Increases over time.
+		speed: 700, //the speed between showings. Increases over time.
 		decrementSpeed: 150,
 		delay: 200, //delay between interactions
 		hold: false, //delay between interactions
@@ -185,7 +185,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
 	//paddles have slightly different requirements than other buttons
 	function hitPaddle(button, freq){
-		if(game.showing === false){
+		if(game.playing === true && game.showing === false ){
 
 			hitButton(button, freq);
 
