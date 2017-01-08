@@ -3,13 +3,25 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
 	//Gamestate
 	var game = {
-		playing: false, //aka started
+		playing: true, //aka started
+		speed: 500, //the speed between showings. Increases over time.
 		delay: 200, //delay between interactions
 		hold: false, //delay between interactions
 		strict: false, //strict mode
 		showing: false, //the game is showing the paddles to hit.
-		count: 0, //current count / steps
+		count: 3, //current count / steps
+		pattern: [], //this array will hold the game steps
+
 	};
+
+	//paddle values
+	var GREEN = 0,
+		RED = 1,
+		YELLOW = 2,
+		BLUE = 3;
+
+	//track the current user steps.
+	var userPattern = [];
 
 	//DOM Elements
 	var $greenPaddle = document.getElementsByClassName("paddle green")[0];
@@ -27,8 +39,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		redFreq = 260,
 		yellowFreq = 220,
 		blueFreq = 175,
-		startFreq = 150,
-		strictFreq = 150,
+		startFreq = 500,
+		strictFreq = 500,
 		onOffSound = new Audio('powerswitch.mp3');
 
 
@@ -56,6 +68,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	});
 
 	$start.addEventListener("click", function(){
+/*
 		if(game.playing === false){
 			//FIRST START
 			start();
@@ -64,6 +77,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
 			//RESET
 
 		}
+*/
+		start();
 
 		hitButton(this, startFreq);
 	});
@@ -100,13 +115,67 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	 * FUNCTIONS BEGIN
 	 */
 
+	//start the game
 	function start(){
 		game.playing = true;
 		game.showing = true;
 
-		count = 1;
-		$count.innerHTML = '01';
+		game.count = 1;
+		displayCount();
 
+		//build a new game pattern
+		game.pattern = [];
+		for(var s = 0; s < 21; s++){
+			game.pattern.push(Math.floor(Math.random() * 4));
+		}
+
+		console.log(game);
+
+		show();
+	}
+
+	function show(){
+
+		var c = 0;
+		var counting = setInterval(function() {
+			console.log(c);
+			showPaddle(game.pattern[c]);
+			if (++c === game.count) {
+				window.clearInterval(counting);
+			}
+		},game.speed);
+
+
+	}
+
+	function displayCount(){
+		$count.innerHTML = game.count<10?'0'+game.count:game.count;
+	}
+
+	function showPaddle(paddle){
+		console.log('Paddle: '+paddle);
+		var $button = null;
+
+		switch(paddle){
+			case GREEN:
+				$button = $greenPaddle;
+				freq = greenFreq;
+				break;
+			case RED:
+				$button = $redPaddle;
+				freq = redFreq;
+				break;
+			case YELLOW:
+				$button = $yellowPaddle;
+				freq = yellowFreq;
+				break;
+			case BLUE:
+				$button = $bluePaddle;
+				freq = blueFreq;
+				break;
+		}
+
+		hitButton($button, freq);
 	}
 
 	//paddles have slightly different requirements than other buttons
