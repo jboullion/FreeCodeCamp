@@ -19,10 +19,10 @@
 		<div id="game-container">
 			<svg id="paddles" viewBox="0 0 400 400" >
 				<!-- Paddles -->
-				<path class="paddle red clickable" d="M 200,1 L 200,200 L 399,200 A 200,200 0 0,0 200,1" />
-				<path class="paddle green clickable" d="M 1,200 L 200,200 L 200,1  A 200,200 0 0,0 1,200"/>
-				<path class="paddle yellow clickable"	d="M 200,399 L 200,200 L 1,200 A 200,200 0 0,0 200,399"/>
-				<path class="paddle blue clickable" d="M 399,200 L 200,200 L 200,399 A 200,200 0 0,0 399,200"/>
+				<path data-id="0" class="paddle green clickable" d="M 1,200 L 200,200 L 200,1  A 200,200 0 0,0 1,200"/>
+				<path data-id="1" class="paddle red clickable" d="M 200,1 L 200,200 L 399,200 A 200,200 0 0,0 200,1" />
+				<path data-id="2" class="paddle yellow clickable"	d="M 200,399 L 200,200 L 1,200 A 200,200 0 0,0 200,399"/>
+				<path data-id="3" class="paddle blue clickable" d="M 399,200 L 200,200 L 200,399 A 200,200 0 0,0 399,200"/>
 
 				<!-- Borders -->
 				<circle class="circle" cx="50%" cy="50%" r="48%" fill="none" stroke="#333" stroke-width="4%"></circle>
@@ -50,18 +50,18 @@
 				<circle id="strict" class="yellow clickable" cx="250" cy="200" r="3%" stroke="#1b1b1b" stroke-width="1%" ></circle>
 				<text class="simon-font" x="236" y="225" font-size="12">STRICT</text>
 
-				<!-- OFF -->
+				<!-- OFF
 				<text class="simon-font clickable" x="150" y="265" font-size="15">OFF</text>
 
-				<!-- ON -->
+				<!-- ON
 				<text class="simon-font clickable" x="240" y="265" font-size="15">ON</text>
 
-				<!-- Track -->
+				<!-- Track
 				<line x1="185" y1="260" x2="225" y2="260" stroke="#1e1e1e" stroke-width="4%" stroke-linecap="round"></line>
 
-				<!-- Thumb -->
+				<!-- Thumb
 				<circle id="on-off-switch" class="on clickable" cx="225" cy="260" r="1.5%" fill="#fefefe" ></circle>
-
+			-->
 			</svg>
 
 		</div>

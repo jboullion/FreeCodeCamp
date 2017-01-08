@@ -3,15 +3,16 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
 	//Gamestate
 	var game = {
-		playing: true, //aka started
+		playing: false, //aka started
 		speed: 500, //the speed between showings. Increases over time.
 		delay: 200, //delay between interactions
 		hold: false, //delay between interactions
 		strict: false, //strict mode
 		showing: false, //the game is showing the paddles to hit.
-		count: 3, //current count / steps
+		count: 1, //current count / steps
 		pattern: [], //this array will hold the game steps
-
+		nextPaddle: null, //what is the nextPaddle the user has to hit
+		userStep: 0 //track the current user steps.
 	};
 
 	//paddle values
@@ -19,9 +20,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		RED = 1,
 		YELLOW = 2,
 		BLUE = 3;
-
-	//track the current user steps.
-	var userPattern = [];
 
 	//DOM Elements
 	var $greenPaddle = document.getElementsByClassName("paddle green")[0];
@@ -39,10 +37,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		redFreq = 260,
 		yellowFreq = 220,
 		blueFreq = 175,
-		startFreq = 500,
-		strictFreq = 500,
+		startFreq = 0,
+		strictFreq = 0,
 		onOffSound = new Audio('powerswitch.mp3');
-
 
 	//Audio Element and Oscillator
 	//http://stackoverflow.com/a/16573282/715879, user: snapfractalpop
@@ -121,30 +118,33 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		game.showing = true;
 
 		game.count = 1;
-		displayCount();
 
 		//build a new game pattern
 		game.pattern = [];
 		for(var s = 0; s < 21; s++){
-			game.pattern.push(Math.floor(Math.random() * 4));
+			game.pattern.push(getRandomInt(0,3));
 		}
-
-		console.log(game);
 
 		show();
 	}
 
 	function show(){
 
+		displayCount();
+
 		var c = 0;
 		var counting = setInterval(function() {
-			console.log(c);
+
 			showPaddle(game.pattern[c]);
 			if (++c === game.count) {
 				window.clearInterval(counting);
+				game.showing = false;
 			}
 		},game.speed);
 
+		//the next paddle the user must hit
+		userStep = 0;
+		game.nextPaddle = game.pattern[userStep];
 
 	}
 
@@ -153,7 +153,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	}
 
 	function showPaddle(paddle){
-		console.log('Paddle: '+paddle);
 		var $button = null;
 
 		switch(paddle){
@@ -181,8 +180,35 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	//paddles have slightly different requirements than other buttons
 	function hitPaddle(button, freq){
 		if(game.showing === false){
-			hitPaddle(button, freq);
+
+			hitButton(button, freq);
+
+			var paddleID = button.getAttribute("data-id");
+
+			if(game.nextPaddle == paddleID){
+				userStep++;
+				if(userStep === game.count){
+					nextStep();
+				}else{
+					game.nextPaddle = game.pattern[userStep];
+				}
+
+			}else{
+				wrongButton();
+			}
+
 		}
+	}
+
+	function wrongButton(){
+		$count.innerHTML = '!!';
+	}
+
+	function nextStep(){
+		game.count++;
+		game.showing = true;
+
+		show();
 	}
 
 	//turn a button on and off.
@@ -213,5 +239,11 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		oscillator.start();
 		oscillator.stop(audioPlayer.currentTime + duration);
 
+	}
+
+	function getRandomInt(min, max) {
+		min = Math.ceil(min);
+		max = Math.floor(max);
+		return Math.floor(Math.random() * (max - min)) + min;
 	}
 });

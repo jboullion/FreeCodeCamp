@@ -15,9 +15,6 @@
 	-webkit-user-select:none;                  /* prevent copy paste, to allow, change 'none' to 'text' */
 }
 
-  * {
-
-}
 
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
@@ -89,8 +86,6 @@ table {
  	font-size: 18px;
  	line-height: 1.6;
  	font-family: 'Squada One', cursive;
-
-
  }
 
 body {
@@ -142,7 +137,7 @@ body {
 @keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
 
 #game-wrapper {
-	margin-top: 100px;
+	margin-top: 50px;
 }
 
 #game-container {
