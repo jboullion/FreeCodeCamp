@@ -4,6 +4,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	//Gamestate
 	var game = {
 		playing: false, //aka started
+		initialSpeed: 700,
 		speed: 700, //the speed between showings. Increases over time.
 		decrementSpeed: 150,
 		delay: 200, //delay between interactions
@@ -40,8 +41,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		yellowFreq = 220,
 		blueFreq = 175,
 		startFreq = 0,
-		strictFreq = 0,
-		onOffSound = new Audio('powerswitch.mp3');
+		strictFreq = 0;
 
 	//Audio Element and Oscillator
 	//http://stackoverflow.com/a/16573282/715879, user: snapfractalpop
@@ -120,6 +120,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		game.showing = true;
 
 		game.count = 1;
+		game.speed = game.initialSpeed;
 
 		//build a new game pattern
 		game.pattern = [];
@@ -214,6 +215,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		}else{
 			playAgain();
 		}
+
+
 	}
 
 	//player loses and goes back to start
@@ -232,6 +235,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		$count.innerHTML = '!!';
 
 		game.showing = true;
+		game.speed = game.initialSpeed;
 
 		setTimeout(function(){
 			show();
@@ -283,6 +287,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	function getRandomInt(min, max) {
 		min = Math.ceil(min);
 		max = Math.floor(max);
-		return Math.floor(Math.random() * (max - min)) + min;
+		return Math.floor(Math.random() * (max - min + 1)) + min;
 	}
 });
