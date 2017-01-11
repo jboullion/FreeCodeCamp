@@ -7,14 +7,8 @@ $(document).ready(function(){
 
 	var codepenTpl = $('#codepen-tempate').html();
 
-	$('h2').click(function(e){
-		if($(this).parent().hasClass('expand')){
-			$(this).parent().removeClass('expand');
-		}else{
-			$(this).parent().addClass('expand');
-		}
-
-		var $codepenTarget = $(this).parent().find('.codepen-target');
+	$('.codepen-target').click(function(e){
+		var $codepenTarget = $(this);
 		if(! $codepenTarget.hasClass('full')){
 			var slugHash = $codepenTarget.data('slug-hash'),
 				title = $codepenTarget.data('title');
